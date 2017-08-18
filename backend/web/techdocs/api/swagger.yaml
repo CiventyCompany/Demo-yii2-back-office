@@ -1,0 +1,344 @@
+swagger: '2.0'
+info:
+  title: test API
+  description: test API
+  version: "0.1.1"
+# the domain of the service
+host: test_adm.dev
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /api/v1
+produces:
+  - application/json
+paths:
+  /api/partners/open-connection:
+    get:
+      summary: Устанавливаает соединение с приложением
+      description: |
+        Php script который авторизирует пользователя в api
+      parameters:
+        - name: token
+          in: query
+          description: Уникальный токен
+          required: true
+          type: string
+          format: string
+      tags:
+        - Partners
+      produces:
+        - php
+      responses:
+        200:
+          description: json объект
+
+  /widget/script:
+    get:
+      summary: Загружает JS-файл виджета на сайт
+      description: |
+        Javascript, который помещает кнопку виджета на сайт
+      parameters:
+        - name: widget_id
+          in: query
+          description: ID виджета
+          required: true
+          type: string
+          format: string
+      tags:
+        - Widgets
+      produces:
+        - text/javascript
+      responses:
+        200:
+          description: Скрипт
+        404:
+          description: Пустой JS-скрипт, в случае, если скрипт по его ID не найден
+
+  /widget/load:
+    get:
+      summary: Загружает данные для скрипта
+      description: Возвращает массив с данными по скрипту в формате объекта
+      parameters:
+        - name: widget_id
+          in: query
+          description: ID виджета
+          required: true
+          type: string
+          format: string
+        - name: session_id
+          in: query
+          description: ID сессии. Если ID сессии не задан, сессия будет создана
+          type: string
+      tags:
+        - Widgets
+      responses:
+        200:
+          description: Массив с данными
+          schema:
+            $ref: "#/definitions/WidgetAppData"
+        404:
+          description: Если виджет не найден
+
+
+  /widget/events:
+    post:
+      summary: Отправка события из виджета
+      description: Отправка события из виджета
+      parameters:
+        - name: widget_id
+          in: query
+          description: ID виджета
+          required: true
+          type: string
+          format: string
+        - name: event_id
+          in: formData
+          description: ID события
+          required: true
+          type: string
+          format: string
+        - name: data
+          in: formData
+          required: false
+          description: Данные по событию
+          type: string
+          format: string
+      tags:
+        - Widgets
+      responses:
+        200:
+          description: Событие успешно записано
+          schema:
+            $ref: "#/definitions/OperationOK"
+        404:
+          description: Виджета с данным ID не существует
+        400:
+          description: Данные о событии предоставлены неверено
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+
+  /widget/save:
+    post:
+      summary: Сохраняет анкету — частично или всю
+      description: |
+        Сохраняет анкету. В теле запроса необходимо передать все заполненные поля
+      parameters:
+        - name: widget_id
+          in: query
+          description: ID виджета
+          required: true
+          type: string
+          format: string
+        - name: fields
+          in: formData
+          description: Список полей
+          type: array
+          format: array
+          required: true
+          items:
+            type: string
+            minItems: 1
+      tags:
+        - Widgets
+      responses:
+        200:
+          description: Данные успешно записаны
+          schema:
+            $ref: "#/definitions/OperationOK"
+        400:
+          description: У пользователя в данных ошибка
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+
+
+
+  /partners/stat:
+    get:
+      summary: Возвращает статистику партнёра
+      parameters:
+        - name: access_token
+          in: query
+          description: Access token партнёра
+          type: string
+          format: string
+          required: true
+        - name: widget_id
+          in: query
+          description: ID виджета. Если задан, то будет отфильтрована статистика только по этому виджету
+          type: string
+        - name: site_id
+          in: query
+          description: ID сайта. Если задан, то будет отфильтрована статистиака только по этому сайту
+          type: integer
+
+      tags:
+        - Partners
+      responses:
+        200:
+          description: Статистику партнёра
+          schema:
+            $ref: "#/definitions/PartnerStats"
+
+  /partners/sites:
+    get:
+      summary: Возвращает список сайтов партнёра
+      parameters:
+        - name: access_token
+          in: query
+          description: Access token партнёра
+          type: string
+          format: string
+          required: true
+      tags:
+        - Partners
+        - Stat
+      responses:
+        200:
+          description: Список сайтов
+          schema:
+            $ref: "#/definitions/PartnerSites"
+
+  /partners/widgets:
+    get:
+      summary: Возвращает список виджетов партнера
+      parameters:
+        - name: access_token
+          in: query
+          description: Access token партнёра
+          type: string
+          format: string
+          required: true
+      tags:
+        - Partners
+        - Widgets
+      responses:
+        200:
+          description: Список виджетов
+          schema:
+            $ref: "#/definitions/WidgetList"
+
+  /partners/widgets/{widgetID}:
+    get:
+      summary: Возвращает данные о виджете
+      parameters:
+        - in: path
+          name: widgetID
+          type: integer
+          required: true
+        - name: access_token
+          in: query
+          description: Access token партнёра
+          type: string
+          format: string
+          required: true
+      tags:
+        - Partners
+        - Widgets
+      responses:
+        200:
+          description: Данные виджета
+          schema:
+            $ref: "#/definitions/Widget"
+        404:
+          description: Такого виджета не существует или он принадлежит другому партнёру
+
+definitions:
+
+
+
+
+  WidgetAppData:
+    type: object
+    properties:
+      session_id:
+        type: integer
+        description: ID сессии
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/WidgetAppDataItem"
+
+  WidgetAppDataItem:
+    type: object
+    required:
+      - name
+    properties:
+      id:
+        type: integer
+        format: int64
+      updated_at:
+        type: integer
+      name:
+        type: string
+      data:
+        type: string
+
+  OperationOK:
+    type: object
+    properties:
+      status:
+        type: string
+        default: OK
+      code:
+        type: integer
+        default: 200
+
+  ErrorMessage:
+    type: object
+    properties:
+      code:
+        type: integer
+        default: 400
+        description: Код ошибки
+      message:
+        type: string
+        description: Описание ошибки
+
+  PartnerStats:
+    type: array
+    items:
+      $ref: "#/definitions/PartnerStatItem"
+
+  PartnerStatItem:
+    type: object
+    properties:
+      date:
+        type: string
+      hits:
+        type: integer
+      hosts:
+        type: integer
+      total_apps:
+        type: integer
+      completed_apps:
+        type: integer
+      approved_apps:
+        type: integer
+
+  PartnerSites:
+    type: array
+    items:
+      $ref: "#/definitions/PartnerSite"
+
+  PartnerSite:
+    type: object
+    properties:
+      id:
+        type: integer
+      domain:
+        type: string
+
+  WidgetList:
+    type: array
+    items:
+      $ref: "#/definitions/Widget"
+
+  Widget:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+

@@ -1,0 +1,3107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<!DOCTYPE html>
+<html lang='en' xmlns='http://www.w3.org/1999/xhtml' >
+<head>
+<title>Схема базы данных для проекта gutfin</title>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+<style type='text/css'>
+body {
+    font-family: 'Segoe UI', 'Lucida sans', Dialog;
+    font-size: 13px;
+    color: #444;
+    margin: 10px;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    caption-side: top;
+    width: auto;
+    margin: 10px 15px 5px 0;
+}
+
+
+.bordered td, .bordered th {
+   background-color: #fafafa;
+   border: 1px solid #D5D5D5;
+   padding: 3px 3px 3px 3px;
+   white-space:pre-wrap!important;
+}
+
+.bordered th {
+    background-color: #f0f0f0;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    padding: 3px 3px 3px 3px;
+    font-size: 13px;
+    font-weight: normal;
+    text-align: left;
+    color: #333333;
+}
+
+.section-header h2 {
+    background-color: #f0f0f0;
+    font-size: 16px;
+    font-weight: normal;
+    border-top: solid 1px #D5D5D5;
+    border-bottom: solid 1px #D5D5D5;
+    width: 95%;
+    margin: 5px 0 5px 0;
+    padding: 5px 0 5px 0;
+    color: #4d82b8;
+}
+.section-header div {
+    font-size: 70%;
+    padding-left: 5px;
+}
+
+
+a, a:visited, a:hover, a:active {
+  color: #044282;
+  text-decoration: none;
+}
+
+th > a {
+    color:#858585;
+}
+
+.lg {
+    font-size: 110%;
+}
+
+h1 {
+    font-family: Verdana,Arial,Helvetica;
+    font-weight: normal;
+    color: #4d82b8;
+    margin: 20px 0 10px 0;
+}
+
+</style>
+
+<script>
+  function showhide(id)
+  {
+    if (document.getElementById)
+    {
+      obj = document.getElementById(id);
+      if (obj.style.display == "none"){ obj.style.display = ""; } else { obj.style.display = "none"; }
+    }
+  }
+</script>
+</head>
+
+<body>
+<div class='svg-container'>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' text-rendering='optimizeLegibility'   width='1344' height='1438' viewbox='0 0 1344 1438' >
+  <script type='text/ecmascript'>
+  <![CDATA[
+  function hghl(el) { for ( var i in el ){ document.getElementById(el[i]).setAttribute('class','highlight');  }  }
+  function uhghl(el) { for ( var i in el ){ document.getElementById(el[i]).setAttribute('class','scene'); }  } 
+  ]]>
+  </script> 
+
+<style type='text/css'>
+  text                { fill:#000000; font-family: Lucida Grande, 'Trebuchet MS', Dialog; font-size:12px; }
+  a text:hover        { text-shadow: 0 0 6px #d0ce00; }
+  text.highlight      { text-shadow: 0 0 4px #eac533; }
+  text.colType        { fill:#b3b3b3; }
+  text.relName        { fill:#b09c7c; }
+  path                { stroke:#5c554f; stroke-width:1.15; fill:none; }
+  path.scene          { stroke-width:10; opacity:0;}
+  path.highlight      { stroke-width:5; stroke:#eac533; opacity:0.6;}
+  rect.table          { fill:#ffffff; stroke:#aaa; stroke-width:1;shape-rendering:crispEdges;filter:url(#shadow); }
+  line.delim          { stroke-width:1; shape-rendering:crispEdges; }
+  text.callout        { fill:#000000; font-family: Lucida Grande, 'Trebuchet MS', Dialog; font-size:12px; }
+  rect.callout        { fill:url(#calloutGradient); stroke:#bebdbd; stroke-width:0.5; filter: url(#shadow);}
+  rect.grp            { stroke:#b1b1b1; stroke-width:1.7; opacity:0.8; }
+</style>
+<defs>
+  <pattern patternUnits='userSpaceOnUse' id='layoutBgA' width='10' height='20' x='0' y='0' viewBox='0 0 5 10'>  
+     <line x1='-2' y1='1' x2='7' y2='10' stroke='#efefef' stroke-width='.5'/>  
+     <line x1='-2' y1='6' x2='7' y2='15' stroke='#efefef' stroke-width='.5'/>  
+     <line x1='-2' y1='-4' x2='7' y2='5' stroke='#efefef' stroke-width='.5'/>  
+  </pattern>  
+  <radialGradient id='layoutBgB' gradientUnits='userSpaceOnUse' cx='50%' cy='50%' r='75%' fx='46%' fy='22%'>
+     <stop offset='0%' stop-opacity='.2' stop-color='#f5f5f5' />  
+     <stop offset='100%' stop-color='#efefef' />  
+  </radialGradient>
+  <linearGradient id='groupUnderTitleLine' x1='0%' y1='0%' x2='100%' y2='0%' >
+          <stop offset='0%' stop-color='#999999' stop-opacity='0.7'/> 
+          <stop offset='100%' stop-color='#999999' stop-opacity='0' /> 
+   </linearGradient>
+  <radialGradient id='calloutGradient' cx='25%' cy='20%' r='80%' fx='10%' fy='10%'>
+	   <stop offset='0%' stop-color='#ffffff' />
+    <stop offset='100%' stop-color='#f8f6d1' />
+  </radialGradient>
+  <filter id='shadow' width='120%' height='120%'> 
+      <feOffset result='offOut' in='SourceGraphic' dx='1' dy='1' /> 
+      <feColorMatrix result='matrixOut' in='offOut' type='matrix' 
+      values='0.1 0 0 0 0 0 0.1 0 0 0 0 0 0.1 0 0 0 0 0 0.3 0' /> 
+      <feGaussianBlur result='blurOut' in='matrixOut' stdDeviation='3' /> 
+      <feBlend in='SourceGraphic' in2='blurOut' mode='normal' /> 
+    </filter> 
+  <filter id='fkShadow' height='130%'> 
+    <feGaussianBlur in='SourceAlpha' stdDeviation='1.5'/> <!-- stdDeviation is how much to blur -->
+    <feOffset dx='1.2' dy='1.2' result='offsetblur'/> <!-- how much to offset -->
+    <feMerge>
+    <feMergeNode/> <!-- this contains the offset blurred image -->
+    <feMergeNode in='SourceGraphic'/> <!-- this contains the element that the filter is applied to -->
+    </feMerge>
+  </filter>
+  <radialGradient id='legendGradient' fx='5%' fy='5%' r='75%' spreadMethod='pad'>
+          <stop offset='0%' stop-color='#eefbf2' stop-opacity='1'/> 
+          <stop offset='100%' stop-color='#cff9cb' stop-opacity='1' /> 
+   </radialGradient>
+  <symbol id='calloutArrowDown' overflow='visible' >
+      <path d='M 0,0 L 8,12 L 16,0 z' style='fill:#f8f6d1;stroke:none; filter: url(#shadow);' />
+      <path d='M 0,0 L 8,12 L 16,0' style='stroke:#bebdbd; stroke-width:0.5;' />
+  </symbol>
+  <symbol id='calloutArrowUp' overflow='visible' >
+      <path d='M 0,16 L 8,4 L 16,16 z' style='fill:#ffffff; stroke:none; filter: url(#shadow);' />
+      <path d='M 0,16 L 8,4 L 16,16' style='stroke:#bebdbd; stroke-width:0.5;' />
+  </symbol>
+  <symbol id='pk' overflow='visible' >
+    <g transform='scale(0.99)'>
+     <path style='fill:#fbea8e;stroke:#472106;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;'
+        d='M 9.3678877,3.5695485 C 9.1030218,3.2729386 9.0796382,2.7628519 9.3396185,2.4517097 9.5449651,2.1956495 9.9040386,2.0980533 10.199638,2.2169415 10.533525,2.3415459 10.775153,2.706942 10.750675,3.0842709 10.737029,3.3980003 10.541153,3.699122 10.258248,3.8066067 9.966649,3.9250429 9.6169668,3.8418805 9.4008073,3.6062324 9.3894892,3.5943518 9.3785264,3.582104 9.3678886,3.5695487 z M 11.226617,6.9916004 C 11.888137,6.3548946 12.293488,5.4172188 12.311087,4.442353 12.378144,2.7379364 11.248678,1.0541269 9.7322318,0.44767357 8.3887112,-0.1280313 6.7865012,0.26822889 5.8918395,1.4007929 5.080823,2.3839145 4.9336815,3.8452096 5.3635544,5.101615 L 4.3670905,5.315913 C 4.0664984,5.3682645 4.0967703,5.6316724 4.2574957,5.8208829 L 4.9124,6.5655244 4.1543436,7.2512357 3.2136002,7.2163506 3.1674775,8.5586827 2.0406832,8.5086512 1.5965306,8.9299953 1.5471661,10.179833 0.75616674,10.195223 0.2112857,10.758575 0.15354288,11.735988 0.07199052,12.765553 c 0.36440953,0.238225 0.79006967,0.195492 1.44938278,-0.02675 L 6.3033562,8.1282037 6.8217102,8.6765688 C 6.9985465,8.8799427 7.3003699,8.7497574 7.358381,8.5016252 L 7.4938877,7.5084164 c 0.8537488,0.3985387 1.8303125,0.4711541 2.6851793,0.1427713 0.393927,-0.1407258 0.746858,-0.3701772 1.04755,-0.6595873 z'/>
+     <path d='M 6.8014948,6.3102123 0.15369063,13.024481 0.21560535,12.141962 6.0062342,6.2683782 z'
+        style='fill:#ffe5a5;fill-opacity:1;stroke:#854e31;stroke-width:0.06912433;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:3.00300009'/>
+    </g>
+  </symbol>
+  <symbol id='unq' overflow='visible' >
+    <g transform='scale(0.99)'>
+      <rect style='fill:#fbea8e;stroke:#7e4d31;stroke-width:0.71934468;stroke-linecap:round;stroke-linejoin:round;'
+         width='2.29' height='8.43' x='7.48' y='-0.76' ry='1.14' transform='matrix(0.701,0.713,-0.727,0.685,0,0)' />
+      <path style='fill:white;stroke:#858585;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;'
+         d='m 26.04,8.64 a 4.13,4.13 0 1 1 -8.26,0 4.13,4.13 0 1 1 8.26,0 z'
+         transform='matrix(1.025,0,0,0.987,-14.690,-3.862)' />
+      <text x='5.8' y='7.4' style='font-size:7px;fill:#8a8a8a;'>1</text>
+    </g>
+  </symbol>
+  <symbol id='idx' overflow='visible' >
+    <g transform='scale(0.99)'>
+      <rect style='fill:#fbea8e;stroke:#7e4d31;stroke-width:0.71934468;stroke-linecap:round;stroke-linejoin:round;'
+         width='2.29' height='8.43' x='7.48' y='-0.76' ry='1.14' transform='matrix(0.701,0.713,-0.727,0.685,0,0)' />
+      <path style='fill:white;stroke:#858585;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;'
+         d='m 26.04,8.64 a 4.13,4.13 0 1 1 -8.26,0 4.13,4.13 0 1 1 8.26,0 z'
+         transform='matrix(1.025,0,0,0.987,-14.690,-3.862)' />
+    </g>
+  </symbol>
+  <symbol id='fk' overflow='visible' >
+    <g transform='scale(0.87)'>
+      <path style='fill:#f3e1b7;stroke:#7e471f;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+      d='M 12.48,0.33 7.07,0.89 9.067,2.974 0.329,11.731 1.073,12.597 9.811,3.841 11.77,5.78 z' />
+    </g>
+  </symbol>
+  <symbol id='ref' overflow='visible' >
+    <g transform='scale(0.87)'>
+      <path style='fill:#f3e1b7;stroke:#7e471f;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+          d='M 0.10,12.70 5.31,12.15 3.40,10.06 11.82,1.32 11.11,0.45 2.68,9.19 0.80,7.24 z'/>
+    </g>
+  </symbol>
+  <symbol id='flag0' overflow='visible' >
+    <g transform='scale(0.92)'>
+      <path style='fill:#b7d0f6;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+          d='M 0.12,12.67 0.16,7.22 C 2.59,7.22 4.13,8.78 9.22,4.22 5.68,4.98 2.53,4.50 0.09,1.80 z'/>
+    </g>
+  </symbol>
+  <symbol id='flag1' overflow='visible' >
+    <g transform='scale(0.92)'>
+      <path style='fill:#f4a393;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+          d='M 0.12,12.67 0.16,7.22 C 2.59,7.22 4.13,8.78 9.22,4.22 5.68,4.98 2.53,4.50 0.09,1.80 z'/>
+    </g>
+  </symbol>
+  <symbol id='flag2' overflow='visible' >
+    <g transform='scale(0.92)'>
+      <path style='fill:#77ec8b;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+          d='M 0.12,12.67 0.16,7.22 C 2.59,7.22 4.13,8.78 9.22,4.22 5.68,4.98 2.53,4.50 0.09,1.80 z'/>
+    </g>
+  </symbol>
+  <symbol id='nn' overflow='visible' >
+  <path style='stroke:#9b3e50;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;'
+          d='M 0,0 3,3 M 0,3 3,0 z'/>
+  </symbol>
+  <symbol id='view' overflow='visible' >
+    <g transform='scale(0.99)'>
+     <line x1='12' y1='6' x2='19' y2='0' stroke='black' stroke-width='0.5' />
+     <line x1='0' y1='6' x2='7' y2='0' stroke='black' stroke-width='0.5' />
+     <circle cx='3' cy='6' r='3' fill='#f9ebbc' stroke='black' stroke-width='0.5'/>
+     <circle cx='10' cy='6' r='3' fill='#f9ebbc' stroke='black' stroke-width='0.5'/>
+    </g>
+  </symbol>
+  <marker id='arrow01' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 8.000,4.000 L 16.000,4.000 L 8.000,0.000 L 16.000,4.000 L 8.000,8.000' />
+  </marker>
+  <marker id='arrow1' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 8.000,4.000 L 16.000,4.000 L 8.000,0.000 L 16.000,4.000 L 8.000,8.000' />
+  </marker>
+  <marker id='foot01' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 0.00,4.00 L 16.00,4.00 z' />
+    <circle cx='12.00' cy='4.00' r='2.67' style='fill:white;stroke:#5e554d;' />
+    <path d='M 4.00,0.00 L 4.00, 8.00 z' />
+  </marker>
+  <marker id='foot0p' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 0.00,4.00 L 16.00,4.00 z' />
+    <circle cx='12.00' cy='4.00' r='2.67' style='fill:white;stroke:#5e554d;' />
+    <path d='M 0.00,0.00 L 8.00,4.00 L 0.00,8.00' />
+  </marker>
+  <marker id='foot1' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 0.00,4.00 L 16.00,4.00 z' />
+    <path d='M 8.00,0.00 L 8.00, 8.00 z' />
+    <path d='M 4.00,0.00 L 4.00, 8.00 z' />
+  </marker>
+  <marker id='foot1p' viewBox='0 0 16.00 8.00' refX='8.00' refY='4.00' markerUnits='strokeWidth' markerWidth='16.00' markerHeight='8.00' orient='auto'>
+    <path d='M 0.00,4.00 L 16.00,4.00 z' />
+    <path d='M 8.00,0.00 L 8.00, 8.00 z' />
+    <path d='M 0.00,0.00 L 8.00,4.00 L 0.00,8.00' />
+  </marker>
+  <linearGradient id='tbg_ffcc66' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#f5efe4' /> 
+     <stop offset='100%' stop-color='#eedfc1' /> 
+  </linearGradient>
+  <linearGradient id='tbg_ff9999' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#f5e4e4' /> 
+     <stop offset='100%' stop-color='#eec1c1' /> 
+  </linearGradient>
+  <linearGradient id='tbg_99ffcc' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#e4f5ed' /> 
+     <stop offset='100%' stop-color='#c1eed8' /> 
+  </linearGradient>
+  <linearGradient id='tbg_ccffcc' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#e4f5e4' /> 
+     <stop offset='100%' stop-color='#c1eec1' /> 
+  </linearGradient>
+  <linearGradient id='tbg_ffcb65' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#f5efe4' /> 
+     <stop offset='100%' stop-color='#eedfc1' /> 
+  </linearGradient>
+  <linearGradient id='tbg_c1d8ee' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#e4edf5' /> 
+     <stop offset='100%' stop-color='#c1d8ee' /> 
+  </linearGradient>
+  <linearGradient id='tbg_cccc00' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#f5f5e4' /> 
+     <stop offset='100%' stop-color='#eeeec1' /> 
+  </linearGradient>
+  <linearGradient id='tbg_ff00cc' x1='0%' y1='0%' x2='0%' y2='100%' >
+     <stop offset='0%' stop-color='#f5e4f2' /> 
+     <stop offset='100%' stop-color='#eec1e5' /> 
+  </linearGradient>
+</defs>
+
+<!-- ============= Desktop ============= -->
+<rect x='1' y='1' width='1342' height='1436' rx='8' ry='8' style='fill:url(#layoutBgB); stroke:#333333; stroke-width:0.5;' />
+<rect x='1' y='1' width='1342' height='1436' rx='8' ry='8' style='fill:url(#layoutBgA); stroke:#333333; stroke-width:0.5;' />
+
+<!-- ============= Legend ============= -->
+<g transform='translate(10,10)'>
+  <rect x='10' y='10' width='302' height='52' rx='6' ry='6' style='fill:url(#legendGradient);filter:url(#shadow);'/> 
+  <text x='65' y='33'>Схема базы данных для проекта gutfin</text> 
+  <text x='65' y='49' style='fill:#aaaaaa; font-size:11px;'><tspan>Schema comments as mouse-over tooltips.</tspan></text> 
+<g transform="scale(0.75,0.75) translate(10,7)" >
+<a xlink:href='http://www.dbschema.com'>
+<rect style="fill:#eb7f2c;stroke:none;shape-rendering:geometricPrecision;" width="13.27" height="11.26" x="40.04" y="59.44" ry="3.14" transform="matrix(0.90187511,-0.43199686,0,1,0,0)" />
+<rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.27" height="11.26" x="54.83" y="59.57" ry="3.14" transform="matrix(0.90187511,-0.43199686,0,1,0,0)" />
+<rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.27" height="11.26" x="40.35" y="71.62" ry="3.14" transform="matrix(0.90187511,-0.43199686,0,1,0,0)" />
+<rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.27" height="11.26" x="54.68" y="71.75" ry="3.14" transform="matrix(0.90187511,-0.43199686,0,1,0,0)" />
+<rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.35" height="11.20" x="13.48" y="19.67" ry="3.12" transform="matrix(0.84723158,0.53122372,0,1,0,0)" />
+<rect style="fill:#eb7f2c;stroke:none;shape-rendering:geometricPrecision;" width="13.35" height="11.20" x="28.36" y="19.80" ry="3.12" transform="matrix(0.84723158,0.53122372,0,1,0,0)" />
+<rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.35" height="11.20" x="13.79" y="31.78" ry="3.12" transform="matrix(0.84723158,0.53122372,0,1,0,0)" />
+<rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.35" height="11.20" x="28.21" y="31.92" ry="3.12" transform="matrix(0.84723158,0.53122372,0,1,0,0)" />
+<rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.49" height="14.24" x="34.59" y="-9.62" ry="3.97" transform="matrix(0.85815392,0.51339249,-0.91732703,0.39813455,0,0)" />
+<rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.49" height="14.24" x="49.63" y="-9.46" ry="3.97" transform="matrix(0.85815392,0.51339249,-0.91732703,0.39813455,0,0)" />
+<rect style="fill:#2c49eb;stroke:none;shape-rendering:geometricPrecision;" width="13.49" height="14.24" x="34.90" y="5.77"  ry="3.97" transform="matrix(0.85815392,0.51339249,-0.91732703,0.39813455,0,0)" />
+<rect style="fill:#eb7f2c;stroke:none;shape-rendering:geometricPrecision;" width="13.49" height="14.24" x="49.47" y="5.93"  ry="3.97" transform="matrix(0.85815392,0.51339249,-0.91732703,0.39813455,0,0)" />
+<title>Generated using DbSchema - www.dbschema.com</title>
+</a></g>
+</g>
+
+<g transform='translate(0,110)'>
+<!-- ============= Group 'Заявки из виджета' ============= -->
+<rect class='grp' style='fill:#cc99ff;stroke:#d7cee0' x='528' y='717' width='400' height='482' />
+<text x='540' y='733'>Заявки из виджета</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='540' y='737' width='376' height='2' />
+
+<!-- ============= Group 'Лиды' ============= -->
+<rect class='grp' style='fill:#ccffcc;stroke:#cee0ce' x='560' y='285' width='544' height='290' />
+<text x='572' y='301'>Лиды</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='572' y='305' width='520' height='2' />
+
+<!-- ============= Group 'Источники траффика' ============= -->
+<rect class='grp' style='fill:#99ffcc;stroke:#cee0d7' x='656' y='61' width='336' height='162' />
+<text x='668' y='77'>Источники траффика</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='668' y='81' width='312' height='2' />
+
+<!-- ============= Group 'Партнёры (вебмастеры)' ============= -->
+<rect class='grp' style='fill:#ffcc66;stroke:#e0dace' x='304' y='109' width='160' height='290' />
+<text x='316' y='125'>Партнёры (вебмастеры)</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='316' y='129' width='136' height='2' />
+
+<!-- ============= Group 'Анкеты' ============= -->
+<rect class='grp' style='fill:#ff9999;stroke:#e0cece' x='304' y='861' width='144' height='338' />
+<text x='316' y='877'>Анкеты</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='316' y='881' width='120' height='2' />
+
+<!-- ============= Group 'Виджет' ============= -->
+<rect class='grp' style='fill:#ff00cc;stroke:#e0cedd' x='320' y='413' width='144' height='322' />
+<text x='332' y='429'>Виджет</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='332' y='433' width='120' height='2' />
+
+<!-- ============= Group 'Статистика партнёров' ============= -->
+<rect class='grp' style='fill:#ffcb65;stroke:#e0dace' x='48' y='77' width='176' height='706' />
+<text x='60' y='93'>Статистика партнёров</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='60' y='97' width='152' height='2' />
+
+<!-- ============= Group 'Внутренняя статистика' ============= -->
+<rect class='grp' style='fill:#cccc00;stroke:#e0e0ce' x='32' y='861' width='208' height='402' />
+<text x='44' y='877'>Внутренняя статистика</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='44' y='881' width='184' height='2' />
+
+<!-- ============= Group 'Локализация интерфейса' ============= -->
+<rect class='grp' style='fill:#c4e0f9;stroke:#ced8e0' x='1008' y='45' width='304' height='242' />
+<text x='1020' y='61'>Локализация интерфейса</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='1020' y='65' width='280' height='2' />
+
+<!-- ============= Group 'Настройки' ============= -->
+<rect class='grp' style='fill:#c4e0f9;stroke:#ced8e0' x='976' y='1085' width='256' height='162' />
+<text x='988' y='1101'>Настройки</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='988' y='1105' width='232' height='2' />
+
+<!-- ============= Fk 'widget_lead_events_fk_lead_events' ============= -->
+<path id='widget_lead_events_fk_lead_events'  onmouseover="hghl(['widget_lead_events_fk_lead_events','gutfin.widget_lead_events.lead_id','gutfin.widget_leads.id'])" onmouseout="uhghl(['widget_lead_events_fk_lead_events','gutfin.widget_lead_events.lead_id','gutfin.widget_leads.id'])" transform='translate(8,0)' class='scene' d='M 752 368 L 752,360 Q 752,352 744,352 L 720,352' >
+	<title>Fk fk_lead_events
+widget_lead_events ref widget_leads ( lead_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 752 368 L 752,360 Q 752,352 744,352 L 720,352' ></path>
+<text x='755' y='363' transform='rotate(270 755,363)' title='Fk fk_lead_events
+widget_lead_events ref widget_leads ( lead_id -&gt; id )' class='relName'>lead_id</text>
+<!-- ============= Fk 'widget_lead_events_fk_winget_lead_events' ============= -->
+<path id='widget_lead_events_fk_winget_lead_events'  onmouseover="hghl(['widget_lead_events_fk_winget_lead_events','gutfin.widget_lead_events.event_type_id','gutfin.leads_events_types.id'])" onmouseout="uhghl(['widget_lead_events_fk_winget_lead_events','gutfin.widget_lead_events.event_type_id','gutfin.leads_events_types.id'])" transform='translate(8,0)' class='scene' d='M 864 416 L 904,416 Q 912,416 912,408 L 912,400' >
+	<title>Fk fk_winget_lead_events
+widget_lead_events ref leads_events_types ( event_type_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 864 416 L 904,416 Q 912,416 912,408 L 912,400' ></path>
+<text x='873' y='411' transform='rotate(0 873,411)' title='Fk fk_winget_lead_events
+widget_lead_events ref leads_events_types ( event_type_id -&gt; id )' class='relName'>event_type_id</text>
+<!-- ============= Fk 'partners_sites_fk_partners_sites' ============= -->
+<path id='partners_sites_fk_partners_sites'  onmouseover="hghl(['partners_sites_fk_partners_sites','gutfin.partners_sites.partner_id','gutfin.partners.id'])" onmouseout="uhghl(['partners_sites_fk_partners_sites','gutfin.partners_sites.partner_id','gutfin.partners.id'])" transform='translate(8,0)' class='scene' d='M 352 272 L 352,288' >
+	<title>Fk fk_partners_sites
+partners_sites ref partners ( partner_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 352 272 L 352,288' ></path>
+<text x='367' y='273' transform='rotate(90 367,273)' title='Fk fk_partners_sites
+partners_sites ref partners ( partner_id -&gt; id )' class='relName'>partner_id</text>
+<!-- ============= Fk 'partners_sites_fk_partners_sites_0' ============= -->
+<path id='partners_sites_fk_partners_sites_0'  onmouseover="hghl(['partners_sites_fk_partners_sites_0','gutfin.partners_sites.domain_id','gutfin.traf_domains.id'])" onmouseout="uhghl(['partners_sites_fk_partners_sites_0','gutfin.partners_sites.domain_id','gutfin.traf_domains.id'])" transform='translate(8,0)' class='scene' d='M 448 192 L 680,192 Q 688,192 688,184 L 688,176' >
+	<title>Fk fk_partners_sites_0
+partners_sites ref traf_domains ( domain_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 448 192 L 680,192 Q 688,192 688,184 L 688,176' ></path>
+<text x='457' y='187' transform='rotate(0 457,187)' title='Fk fk_partners_sites_0
+partners_sites ref traf_domains ( domain_id -&gt; id )' class='relName'>domain_id</text>
+<!-- ============= Fk 'forms_fields_fk_forms_questions' ============= -->
+<path id='forms_fields_fk_forms_questions'  onmouseover="hghl(['forms_fields_fk_forms_questions','gutfin.forms_fields.form_id','gutfin.forms.id'])" onmouseout="uhghl(['forms_fields_fk_forms_questions','gutfin.forms_fields.form_id','gutfin.forms.id'])" transform='translate(8,0)' class='scene' d='M 336 1008 L 336,976' >
+	<title>Fk fk_forms_questions
+forms_fields ref forms ( form_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 336 1008 L 336,976' ></path>
+<text x='339' y='1003' transform='rotate(270 339,1003)' title='Fk fk_forms_questions
+forms_fields ref forms ( form_id -&gt; id )' class='relName'>form_id</text>
+<!-- ============= Fk 'stat_sites_fk_stat_sites' ============= -->
+<path id='stat_sites_fk_stat_sites'  onmouseover="hghl(['stat_sites_fk_stat_sites','gutfin.stat_sites.site_id','gutfin.partners_sites.id'])" onmouseout="uhghl(['stat_sites_fk_stat_sites','gutfin.stat_sites.site_id','gutfin.partners_sites.id'])" transform='translate(8,0)' class='scene' d='M 208 144 L 320,144' >
+	<title>Fk fk_stat_sites
+stat_sites ref partners_sites ( site_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 208 144 L 320,144' ></path>
+<text x='217' y='139' transform='rotate(0 217,139)' title='Fk fk_stat_sites
+stat_sites ref partners_sites ( site_id -&gt; id )' class='relName'>site_id</text>
+<!-- ============= Fk 'stat_partners_fk_stat_partners' ============= -->
+<path id='stat_partners_fk_stat_partners'  onmouseover="hghl(['stat_partners_fk_stat_partners','gutfin.stat_partners.partner_id','gutfin.partners.id'])" onmouseout="uhghl(['stat_partners_fk_stat_partners','gutfin.stat_partners.partner_id','gutfin.partners.id'])" transform='translate(8,0)' class='scene' d='M 208 336 L 304,336' >
+	<title>Fk fk_stat_partners
+stat_partners ref partners ( partner_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 208 336 L 304,336' ></path>
+<text x='217' y='331' transform='rotate(0 217,331)' title='Fk fk_stat_partners
+stat_partners ref partners ( partner_id -&gt; id )' class='relName'>partner_id</text>
+<!-- ============= Fk 'clients_persons_fk_clients_persons' ============= -->
+<path id='clients_persons_fk_clients_persons'  onmouseover="hghl(['clients_persons_fk_clients_persons','gutfin.clients_persons.user_id','gutfin.user.id'])" onmouseout="uhghl(['clients_persons_fk_clients_persons','gutfin.clients_persons.user_id','gutfin.user.id'])" transform='translate(8,0)' class='scene' d='M 912 832 L 1056,832' >
+	<title>Fk fk_clients_persons
+clients_persons ref user ( user_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow1)'    d='M 912 832 L 1056,832' ></path>
+<text x='921' y='827' transform='rotate(0 921,827)' title='Fk fk_clients_persons
+clients_persons ref user ( user_id -&gt; id )' class='relName'>user_id</text>
+<!-- ============= Fk 'widget_lead_events_data_fk_widget_lead_events_data' ============= -->
+<path id='widget_lead_events_data_fk_widget_lead_events_data'  onmouseover="hghl(['widget_lead_events_data_fk_widget_lead_events_data','gutfin.widget_lead_events_data.widget_lead_event_id','gutfin.widget_lead_events.id'])" onmouseout="uhghl(['widget_lead_events_data_fk_widget_lead_events_data','gutfin.widget_lead_events_data.widget_lead_event_id','gutfin.widget_lead_events.id'])" transform='translate(8,0)' class='scene' d='M 912 448 L 864,448' >
+	<title>Fk fk_widget_lead_events_data
+widget_lead_events_data ref widget_lead_events ( widget_lead_event_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1)' marker-end='url(#arrow1)'    d='M 912 448 L 864,448' ></path>
+<text x='792' y='443' transform='rotate(0 792,443)' title='Fk fk_widget_lead_events_data
+widget_lead_events_data ref widget_lead_events ( widget_lead_event_id -&gt; id )' class='relName'>widget_lead_event_id</text>
+<!-- ============= Fk 'stat_forms_fk_stat_forms' ============= -->
+<path id='stat_forms_fk_stat_forms'  onmouseover="hghl(['stat_forms_fk_stat_forms','gutfin.stat_forms.form_id','gutfin.forms.id'])" onmouseout="uhghl(['stat_forms_fk_stat_forms','gutfin.stat_forms.form_id','gutfin.forms.id'])" transform='translate(8,0)' class='scene' d='M 192 912 L 304,912' >
+	<title>Fk fk_stat_forms
+stat_forms ref forms ( form_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 192 912 L 304,912' ></path>
+<text x='201' y='907' transform='rotate(0 201,907)' title='Fk fk_stat_forms
+stat_forms ref forms ( form_id -&gt; id )' class='relName'>form_id</text>
+<!-- ============= Fk 'widget_leads_winget_leads_ibfk_1' ============= -->
+<path id='widget_leads_winget_leads_ibfk_1'  onmouseover="hghl(['widget_leads_winget_leads_ibfk_1','gutfin.widget_leads.widget_id','gutfin.widgets.id'])" onmouseout="uhghl(['widget_leads_winget_leads_ibfk_1','gutfin.widget_leads.widget_id','gutfin.widgets.id'])" transform='translate(8,0)' class='scene' d='M 560 528 L 472,528 Q 464,528 464,536 L 464,584 Q 464,592 456,592 L 448,592' >
+	<title>Fk winget_leads_ibfk_1
+widget_leads ref widgets ( widget_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 560 528 L 472,528 Q 464,528 464,536 L 464,584 Q 464,592 456,592 L 448,592' ></path>
+<text x='508' y='523' transform='rotate(0 508,523)' title='Fk winget_leads_ibfk_1
+widget_leads ref widgets ( widget_id -&gt; id )' class='relName'>widget_id</text>
+<!-- ============= Fk 'widget_leads_fk_winget_leads' ============= -->
+<path id='widget_leads_fk_winget_leads'  onmouseover="hghl(['widget_leads_fk_winget_leads','gutfin.widget_leads.user_agent_id','gutfin.browser_user_agents.id'])" onmouseout="uhghl(['widget_leads_fk_winget_leads','gutfin.widget_leads.user_agent_id','gutfin.browser_user_agents.id'])" transform='translate(8,0)' class='scene' d='M 720 544 L 1104,544' >
+	<title>Fk fk_winget_leads
+widget_leads ref browser_user_agents ( user_agent_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow1)'    d='M 720 544 L 1104,544' ></path>
+<text x='729' y='539' transform='rotate(0 729,539)' title='Fk fk_winget_leads
+widget_leads ref browser_user_agents ( user_agent_id -&gt; id )' class='relName'>user_agent_id</text>
+<!-- ============= Fk 'widget_leads_fk_winget_leads_0' ============= -->
+<path id='widget_leads_fk_winget_leads_0'  onmouseover="hghl(['widget_leads_fk_winget_leads_0','gutfin.widget_leads.partner_site_id','gutfin.partners_sites.id'])" onmouseout="uhghl(['widget_leads_fk_winget_leads_0','gutfin.widget_leads.partner_site_id','gutfin.partners_sites.id'])" transform='translate(8,0)' class='scene' d='M 560 320 L 472,320 Q 464,320 464,312 L 464,264 Q 464,256 456,256 L 448,256' >
+	<title>Fk fk_winget_leads_0
+widget_leads ref partners_sites ( partner_site_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 560 320 L 472,320 Q 464,320 464,312 L 464,264 Q 464,256 456,256 L 448,256' ></path>
+<text x='477' y='315' transform='rotate(0 477,315)' title='Fk fk_winget_leads_0
+widget_leads ref partners_sites ( partner_site_id -&gt; id )' class='relName'>partner_site_id</text>
+<!-- ============= Fk 'widget_leads_fk_winget_leads_1' ============= -->
+<path id='widget_leads_fk_winget_leads_1'  onmouseover="hghl(['widget_leads_fk_winget_leads_1','gutfin.widget_leads.traf_referer_id','gutfin.traf_referers.id'])" onmouseout="uhghl(['widget_leads_fk_winget_leads_1','gutfin.widget_leads.traf_referer_id','gutfin.traf_referers.id'])" transform='translate(8,0)' class='scene' d='M 720 336 L 840,336 Q 848,336 848,328 L 848,184 Q 848,176 856,176 L 864,176' >
+	<title>Fk fk_winget_leads_1
+widget_leads ref traf_referers ( traf_referer_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot0p)' marker-end='url(#arrow1)'    d='M 720 336 L 840,336 Q 848,336 848,328 L 848,184 Q 848,176 856,176 L 864,176' ></path>
+<text x='729' y='331' transform='rotate(0 729,331)' title='Fk fk_winget_leads_1
+widget_leads ref traf_referers ( traf_referer_id -&gt; id )' class='relName'>traf_referer_id</text>
+<!-- ============= Fk 'widget_apps_fk_widget_apps' ============= -->
+<path id='widget_apps_fk_widget_apps'  onmouseover="hghl(['widget_apps_fk_widget_apps','gutfin.widget_apps.widget_lead_id','gutfin.widget_leads.id'])" onmouseout="uhghl(['widget_apps_fk_widget_apps','gutfin.widget_apps.widget_lead_id','gutfin.widget_leads.id'])" transform='translate(8,0)' class='scene' d='M 592 768 L 592,560' >
+	<title>Fk fk_widget_apps
+widget_apps ref widget_leads ( widget_lead_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 592 768 L 592,560' ></path>
+<text x='595' y='763' transform='rotate(270 595,763)' title='Fk fk_widget_apps
+widget_apps ref widget_leads ( widget_lead_id -&gt; id )' class='relName'>widget_lead_id</text>
+<!-- ============= Fk 'widget_apps_fk_widget_apps_0' ============= -->
+<path id='widget_apps_fk_widget_apps_0'  onmouseover="hghl(['widget_apps_fk_widget_apps_0','gutfin.widget_apps.form_id','gutfin.forms.id'])" onmouseout="uhghl(['widget_apps_fk_widget_apps_0','gutfin.widget_apps.form_id','gutfin.forms.id'])" transform='translate(8,0)' class='scene' d='M 528 912 L 400,912' >
+	<title>Fk fk_widget_apps_0
+widget_apps ref forms ( form_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 528 912 L 400,912' ></path>
+<text x='487' y='907' transform='rotate(0 487,907)' title='Fk fk_widget_apps_0
+widget_apps ref forms ( form_id -&gt; id )' class='relName'>form_id</text>
+<!-- ============= Fk 'widget_apps_fk_widget_apps_1' ============= -->
+<path id='widget_apps_fk_widget_apps_1'  onmouseover="hghl(['widget_apps_fk_widget_apps_1','gutfin.widget_apps.widget_id','gutfin.widgets.id'])" onmouseout="uhghl(['widget_apps_fk_widget_apps_1','gutfin.widget_apps.widget_id','gutfin.widgets.id'])" transform='translate(8,0)' class='scene' d='M 528 784 L 440,784 Q 432,784 432,776 L 432,720' >
+	<title>Fk fk_widget_apps_1
+widget_apps ref widgets ( widget_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 528 784 L 440,784 Q 432,784 432,776 L 432,720' ></path>
+<text x='476' y='779' transform='rotate(0 476,779)' title='Fk fk_widget_apps_1
+widget_apps ref widgets ( widget_id -&gt; id )' class='relName'>widget_id</text>
+<!-- ============= Fk 'widget_apps_fk_widget_apps_2' ============= -->
+<path id='widget_apps_fk_widget_apps_2'  onmouseover="hghl(['widget_apps_fk_widget_apps_2','gutfin.widget_apps.person_id','gutfin.clients_persons.id'])" onmouseout="uhghl(['widget_apps_fk_widget_apps_2','gutfin.widget_apps.person_id','gutfin.clients_persons.id'])" transform='translate(8,0)' class='scene' d='M 672 800 L 752,800' >
+	<title>Fk fk_widget_apps_2
+widget_apps ref clients_persons ( person_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 672 800 L 752,800' ></path>
+<text x='681' y='795' transform='rotate(0 681,795)' title='Fk fk_widget_apps_2
+widget_apps ref clients_persons ( person_id -&gt; id )' class='relName'>person_id</text>
+<!-- ============= Fk 'widgets_widgets_ibfk_1' ============= -->
+<path id='widgets_widgets_ibfk_1'  onmouseover="hghl(['widgets_widgets_ibfk_1','gutfin.widgets.partner_id','gutfin.partners.id'])" onmouseout="uhghl(['widgets_widgets_ibfk_1','gutfin.widgets.partner_id','gutfin.partners.id'])" transform='translate(8,0)' class='scene' d='M 320 576 L 296,576 Q 288,576 288,568 L 288,360 Q 288,352 296,352 L 304,352' >
+	<title>Fk widgets_ibfk_1
+widgets ref partners ( partner_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 320 576 L 296,576 Q 288,576 288,568 L 288,360 Q 288,352 296,352 L 304,352' ></path>
+<text x='263' y='571' transform='rotate(0 263,571)' title='Fk widgets_ibfk_1
+widgets ref partners ( partner_id -&gt; id )' class='relName'>partner_id</text>
+<!-- ============= Fk 'widgets_fk_widgets' ============= -->
+<path id='widgets_fk_widgets'  onmouseover="hghl(['widgets_fk_widgets','gutfin.widgets.form_id','gutfin.forms.id'])" onmouseout="uhghl(['widgets_fk_widgets','gutfin.widgets.form_id','gutfin.forms.id'])" transform='translate(8,0)' class='scene' d='M 352 720 L 352,880' >
+	<title>Fk fk_widgets
+widgets ref forms ( form_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 352 720 L 352,880' ></path>
+<text x='367' y='721' transform='rotate(90 367,721)' title='Fk fk_widgets
+widgets ref forms ( form_id -&gt; id )' class='relName'>form_id</text>
+<!-- ============= Fk 'widget_settings_fk_widget_settings' ============= -->
+<path id='widget_settings_fk_widget_settings'  onmouseover="hghl(['widget_settings_fk_widget_settings','gutfin.widget_settings.widget_id','gutfin.widgets.id'])" onmouseout="uhghl(['widget_settings_fk_widget_settings','gutfin.widget_settings.widget_id','gutfin.widgets.id'])" transform='translate(8,0)' class='scene' d='M 352 528 L 352,560' >
+	<title>Fk fk_widget_settings
+widget_settings ref widgets ( widget_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1)' marker-end='url(#arrow1)'    d='M 352 528 L 352,560' ></path>
+<text x='367' y='529' transform='rotate(90 367,529)' title='Fk fk_widget_settings
+widget_settings ref widgets ( widget_id -&gt; id )' class='relName'>widget_id</text>
+<!-- ============= Fk 'traf_referers_fk_traf_referers' ============= -->
+<path id='traf_referers_fk_traf_referers'  onmouseover="hghl(['traf_referers_fk_traf_referers','gutfin.traf_referers.domain_id','gutfin.traf_domains.id'])" onmouseout="uhghl(['traf_referers_fk_traf_referers','gutfin.traf_referers.domain_id','gutfin.traf_domains.id'])" transform='translate(8,0)' class='scene' d='M 864 112 L 768,112' >
+	<title>Fk fk_traf_referers
+traf_referers ref traf_domains ( domain_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 864 112 L 768,112' ></path>
+<text x='807' y='107' transform='rotate(0 807,107)' title='Fk fk_traf_referers
+traf_referers ref traf_domains ( domain_id -&gt; id )' class='relName'>domain_id</text>
+<!-- ============= Fk 'widget_apps_fields_data_fk_widget_apps_fields_data' ============= -->
+<path id='widget_apps_fields_data_fk_widget_apps_fields_data'  onmouseover="hghl(['widget_apps_fields_data_fk_widget_apps_fields_data','gutfin.widget_apps_fields_data.widget_app_id','gutfin.widget_apps.id'])" onmouseout="uhghl(['widget_apps_fields_data_fk_widget_apps_fields_data','gutfin.widget_apps_fields_data.widget_app_id','gutfin.widget_apps.id'])" transform='translate(8,0)' class='scene' d='M 560 1072 L 560,976' >
+	<title>Fk fk_widget_apps_fields_data
+widget_apps_fields_data ref widget_apps ( widget_app_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 560 1072 L 560,976' ></path>
+<text x='563' y='1067' transform='rotate(270 563,1067)' title='Fk fk_widget_apps_fields_data
+widget_apps_fields_data ref widget_apps ( widget_app_id -&gt; id )' class='relName'>widget_app_id</text>
+<!-- ============= Fk 'widget_apps_fields_data_fk_widget_apps_fields_data_0' ============= -->
+<path id='widget_apps_fields_data_fk_widget_apps_fields_data_0'  onmouseover="hghl(['widget_apps_fields_data_fk_widget_apps_fields_data_0','gutfin.widget_apps_fields_data.form_field_id','gutfin.forms_fields.id'])" onmouseout="uhghl(['widget_apps_fields_data_fk_widget_apps_fields_data_0','gutfin.widget_apps_fields_data.form_field_id','gutfin.forms_fields.id'])" transform='translate(8,0)' class='scene' d='M 528 1088 L 432,1088' >
+	<title>Fk fk_widget_apps_fields_data_0
+widget_apps_fields_data ref forms_fields ( form_field_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 528 1088 L 432,1088' ></path>
+<text x='456' y='1083' transform='rotate(0 456,1083)' title='Fk fk_widget_apps_fields_data_0
+widget_apps_fields_data ref forms_fields ( form_field_id -&gt; id )' class='relName'>form_field_id</text>
+<!-- ============= Fk 'stat_widgets_fk_stat_widgets' ============= -->
+<path id='stat_widgets_fk_stat_widgets'  onmouseover="hghl(['stat_widgets_fk_stat_widgets','gutfin.stat_widgets.widget_id','gutfin.widgets.id'])" onmouseout="uhghl(['stat_widgets_fk_stat_widgets','gutfin.stat_widgets.widget_id','gutfin.widgets.id'])" transform='translate(8,0)' class='scene' d='M 208 592 L 320,592' >
+	<title>Fk fk_stat_widgets
+stat_widgets ref widgets ( widget_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 208 592 L 320,592' ></path>
+<text x='217' y='587' transform='rotate(0 217,587)' title='Fk fk_stat_widgets
+stat_widgets ref widgets ( widget_id -&gt; id )' class='relName'>widget_id</text>
+<!-- ============= Fk 'locales_fk_locales' ============= -->
+<path id='locales_fk_locales'  onmouseover="hghl(['locales_fk_locales','gutfin.locales.lang_id','gutfin.locales_langs.id'])" onmouseout="uhghl(['locales_fk_locales','gutfin.locales.lang_id','gutfin.locales_langs.id'])" transform='translate(8,0)' class='scene' d='M 1168 96 L 1120,96' >
+	<title>Fk fk_locales
+locales ref locales_langs ( lang_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 1168 96 L 1120,96' ></path>
+<text x='1130' y='91' transform='rotate(0 1130,91)' title='Fk fk_locales
+locales ref locales_langs ( lang_id -&gt; id )' class='relName'>lang_id</text>
+<!-- ============= Fk 'locales_fk_locales_0' ============= -->
+<path id='locales_fk_locales_0'  onmouseover="hghl(['locales_fk_locales_0','gutfin.locales.group_id','gutfin.locales_groups.id'])" onmouseout="uhghl(['locales_fk_locales_0','gutfin.locales.group_id','gutfin.locales_groups.id'])" transform='translate(8,0)' class='scene' d='M 1168 192 L 1160,192 Q 1152,192 1152,200 L 1152,200 Q 1152,208 1144,208 L 1136,208' >
+	<title>Fk fk_locales_0
+locales ref locales_groups ( group_id -&gt; id )</title>
+</path>
+<path transform='translate(8,0)' marker-start='url(#foot1p)' marker-end='url(#arrow1)'    d='M 1168 192 L 1160,192 Q 1152,192 1152,200 L 1152,200 Q 1152,208 1144,208 L 1136,208' ></path>
+<text x='1120' y='187' transform='rotate(0 1120,187)' title='Fk fk_locales_0
+locales ref locales_groups ( group_id -&gt; id )' class='relName'>group_id</text>
+<!-- ============= Table 'partners' ============= -->
+<rect class='table' x='320' y='296' width='112' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 320.00 324.00 L 320.00 304.00 Q 320.00 296.00 328.00 296.00 L 424.00 296.00 Q 432.00 296.00 432.00 304.00 L 432.00 324.00 L320.00 324.00 ' style='fill:url(#tbg_ffcc66);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='320' y='296' width='112' height='80' rx='8' ry='8' style='fill:none;stroke:#d0c2a5'/>
+<line class='delim' x1='320.000000' y1='324.000000' x2='432.000000' y2='324.000000' style='stroke:#d0c2a5'/>
+<line class='delim' x1='336.000000' y1='324.000000' x2='336.000000' y2='376.000000' style='stroke:#d0c2a5'/>
+<line class='delim' x1='420.000000' y1='324.000000' x2='420.000000' y2='376.000000' style='stroke:#d0c2a5'/>
+<a xlink:href='#partners'><text x='347' y='316'>partners</text><title>Table gutfin.partners
+Партнёры (они же вебмастеры)</title></a>
+  <use id='nn' x='322' y='333' xlink:href='#nn'/><a xlink:href='#partners.id'><use id='pk' x='322' y='332' xlink:href='#pk'/><title>Pk pk_partners ( id ) </title></a>
+<a xlink:href='#partners.id'><text id='gutfin.partners.id' x='339' y='343' onmouseover="hghl(['widgets_widgets_ibfk_1','partners_sites_fk_partners_sites','stat_partners_fk_stat_partners'])" onmouseout="uhghl(['widgets_widgets_ibfk_1','partners_sites_fk_partners_sites','stat_partners_fk_stat_partners'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#partners.id'><use id='ref' x='420' y='332' xlink:href='#ref'/><title>Referred by widgets ( partner_id -&gt; id ) 
+Referred by partners_sites ( partner_id -&gt; id ) 
+Referred by stat_partners ( partner_id -&gt; id ) </title></a>
+  <use id='nn' x='322' y='349' xlink:href='#nn'/><a xlink:href='#partners.access_token'><use id='unq' x='322' y='348' xlink:href='#unq'/><title>Unq access_token ( access_token ) </title></a>
+<a xlink:href='#partners.access_token'><text id='gutfin.partners.access_token' x='339' y='359'>access_token</text><title>access_token
+* varchar(64) default ''
+Ключ для доступа к API</title></a>
+
+<!-- ============= Table 'forms' ============= -->
+<rect class='table' x='320' y='888' width='80' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 320.00 916.00 L 320.00 896.00 Q 320.00 888.00 328.00 888.00 L 392.00 888.00 Q 400.00 888.00 400.00 896.00 L 400.00 916.00 L320.00 916.00 ' style='fill:url(#tbg_ff9999);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='320' y='888' width='80' height='80' rx='8' ry='8' style='fill:none;stroke:#d0a5a5'/>
+<line class='delim' x1='320.000000' y1='916.000000' x2='400.000000' y2='916.000000' style='stroke:#d0a5a5'/>
+<line class='delim' x1='336.000000' y1='916.000000' x2='336.000000' y2='968.000000' style='stroke:#d0a5a5'/>
+<line class='delim' x1='388.000000' y1='916.000000' x2='388.000000' y2='968.000000' style='stroke:#d0a5a5'/>
+<a xlink:href='#forms'><text x='339' y='908'>forms</text><title>Table gutfin.forms
+Типы форм</title></a>
+  <use id='nn' x='322' y='925' xlink:href='#nn'/><a xlink:href='#forms.id'><use id='pk' x='322' y='924' xlink:href='#pk'/><title>Pk pk_forms_types ( id ) </title></a>
+<a xlink:href='#forms.id'><text id='gutfin.forms.id' x='339' y='935' onmouseover="hghl(['widgets_fk_widgets','forms_fields_fk_forms_questions','widget_apps_fk_widget_apps_0','stat_forms_fk_stat_forms'])" onmouseout="uhghl(['widgets_fk_widgets','forms_fields_fk_forms_questions','widget_apps_fk_widget_apps_0','stat_forms_fk_stat_forms'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#forms.id'><use id='ref' x='388' y='924' xlink:href='#ref'/><title>Referred by widgets ( form_id -&gt; id ) 
+Referred by forms_fields ( form_id -&gt; id ) 
+Referred by widget_apps ( form_id -&gt; id ) 
+Referred by stat_forms ( form_id -&gt; id ) </title></a>
+  <use id='nn' x='322' y='941' xlink:href='#nn'/><a xlink:href='#forms.name'><text id='gutfin.forms.name' x='339' y='951'>name</text><title>name
+* varchar(255) default ''
+Название анкеты</title></a>
+
+<!-- ============= Table 'traf_domains' ============= -->
+<rect class='table' x='672' y='88' width='96' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 672.00 116.00 L 672.00 96.00 Q 672.00 88.00 680.00 88.00 L 760.00 88.00 Q 768.00 88.00 768.00 96.00 L 768.00 116.00 L672.00 116.00 ' style='fill:url(#tbg_99ffcc);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='672' y='88' width='96' height='80' rx='8' ry='8' style='fill:none;stroke:#a5d0bb'/>
+<line class='delim' x1='672.000000' y1='116.000000' x2='768.000000' y2='116.000000' style='stroke:#a5d0bb'/>
+<line class='delim' x1='688.000000' y1='116.000000' x2='688.000000' y2='168.000000' style='stroke:#a5d0bb'/>
+<line class='delim' x1='756.000000' y1='116.000000' x2='756.000000' y2='168.000000' style='stroke:#a5d0bb'/>
+<a xlink:href='#traf_domains'><text x='678' y='108'>traf_domains</text><title>Table gutfin.traf_domains</title></a>
+  <use id='nn' x='674' y='125' xlink:href='#nn'/><a xlink:href='#traf_domains.id'><use id='pk' x='674' y='124' xlink:href='#pk'/><title>Pk pk_traf_domains ( id ) </title></a>
+<a xlink:href='#traf_domains.id'><text id='gutfin.traf_domains.id' x='691' y='135' onmouseover="hghl(['traf_referers_fk_traf_referers','partners_sites_fk_partners_sites_0'])" onmouseout="uhghl(['traf_referers_fk_traf_referers','partners_sites_fk_partners_sites_0'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#traf_domains.id'><use id='ref' x='756' y='124' xlink:href='#ref'/><title>Referred by traf_referers ( domain_id -&gt; id ) 
+Referred by partners_sites ( domain_id -&gt; id ) </title></a>
+  <a xlink:href='#traf_domains.domain'><text id='gutfin.traf_domains.domain' x='691' y='151'>domain</text><title>domain
+varchar(255)
+Домен, без http, www., пути, итд</title></a>
+
+<!-- ============= Table 'widget_lead_events' ============= -->
+<rect class='table' x='736' y='376' width='128' height='112' rx='8' ry='8' style='stroke:none'/>
+<path d='M 736.00 404.00 L 736.00 384.00 Q 736.00 376.00 744.00 376.00 L 856.00 376.00 Q 864.00 376.00 864.00 384.00 L 864.00 404.00 L736.00 404.00 ' style='fill:url(#tbg_ccffcc);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='736' y='376' width='128' height='112' rx='8' ry='8' style='fill:none;stroke:#a5d0a5'/>
+<line class='delim' x1='736.000000' y1='404.000000' x2='864.000000' y2='404.000000' style='stroke:#a5d0a5'/>
+<line class='delim' x1='752.000000' y1='404.000000' x2='752.000000' y2='488.000000' style='stroke:#a5d0a5'/>
+<line class='delim' x1='852.000000' y1='404.000000' x2='852.000000' y2='488.000000' style='stroke:#a5d0a5'/>
+<a xlink:href='#widget_lead_events'><text x='740' y='396'>widget_lead_events</text><title>Table gutfin.widget_lead_events
+События у лида</title></a>
+  <use id='nn' x='738' y='413' xlink:href='#nn'/><a xlink:href='#widget_lead_events.id'><use id='pk' x='738' y='412' xlink:href='#pk'/><title>Pk pk_lead_events ( id ) </title></a>
+<a xlink:href='#widget_lead_events.id'><text id='gutfin.widget_lead_events.id' x='755' y='423' onmouseover="hghl(['widget_lead_events_data_fk_widget_lead_events_data'])" onmouseout="uhghl(['widget_lead_events_data_fk_widget_lead_events_data'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#widget_lead_events.id'><use id='ref' x='852' y='412' xlink:href='#ref'/><title>Referred by widget_lead_events_data ( widget_lead_event_id -&gt; id ) </title></a>
+  <use id='nn' x='738' y='429' xlink:href='#nn'/><a xlink:href='#widget_lead_events.created_at'><text id='gutfin.widget_lead_events.created_at' x='755' y='439'>created_at</text><title>created_at
+* int
+Дата события</title></a>
+  <use id='nn' x='738' y='445' xlink:href='#nn'/><a xlink:href='#widget_lead_events.lead_id'><use id='idx' x='738' y='444' xlink:href='#idx'/><title>idx_lead_events ( lead_id ) </title></a>
+<a xlink:href='#widget_lead_events.lead_id'><text id='gutfin.widget_lead_events.lead_id' x='755' y='455' onmouseover="hghl(['widget_lead_events_fk_lead_events'])" onmouseout="uhghl(['widget_lead_events_fk_lead_events'])">lead_id</text><title>lead_id
+* int
+ID лида</title></a>
+<a xlink:href='#widget_lead_events.lead_id'><use id='fk' x='852' y='444' xlink:href='#fk'/><title>References widget_leads ( lead_id -&gt; id ) </title></a>
+  <use id='nn' x='738' y='461' xlink:href='#nn'/><a xlink:href='#widget_lead_events.event_type_id'><use id='idx' x='738' y='460' xlink:href='#idx'/><title>idx_winget_lead_events ( event_type_id ) </title></a>
+<a xlink:href='#widget_lead_events.event_type_id'><text id='gutfin.widget_lead_events.event_type_id' x='755' y='471' onmouseover="hghl(['widget_lead_events_fk_winget_lead_events'])" onmouseout="uhghl(['widget_lead_events_fk_winget_lead_events'])">event_type_id</text><title>event_type_id
+* int
+ID типа события</title></a>
+<a xlink:href='#widget_lead_events.event_type_id'><use id='fk' x='852' y='460' xlink:href='#fk'/><title>References leads_events_types ( event_type_id -&gt; id ) </title></a>
+
+<!-- ============= Table 'partners_sites' ============= -->
+<rect class='table' x='336' y='136' width='112' height='128' rx='8' ry='8' style='stroke:none'/>
+<path d='M 336.00 164.00 L 336.00 144.00 Q 336.00 136.00 344.00 136.00 L 440.00 136.00 Q 448.00 136.00 448.00 144.00 L 448.00 164.00 L336.00 164.00 ' style='fill:url(#tbg_ffcc66);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='336' y='136' width='112' height='128' rx='8' ry='8' style='fill:none;stroke:#d0c2a5'/>
+<line class='delim' x1='336.000000' y1='164.000000' x2='448.000000' y2='164.000000' style='stroke:#d0c2a5'/>
+<line class='delim' x1='352.000000' y1='164.000000' x2='352.000000' y2='264.000000' style='stroke:#d0c2a5'/>
+<line class='delim' x1='436.000000' y1='164.000000' x2='436.000000' y2='264.000000' style='stroke:#d0c2a5'/>
+<a xlink:href='#partners_sites'><text x='347' y='156'>partners_sites</text><title>Table gutfin.partners_sites
+Сайты партнёра</title></a>
+  <use id='nn' x='338' y='173' xlink:href='#nn'/><a xlink:href='#partners_sites.id'><use id='pk' x='338' y='172' xlink:href='#pk'/><title>Pk pk_partners_sites ( id ) </title></a>
+<a xlink:href='#partners_sites.id'><text id='gutfin.partners_sites.id' x='355' y='183' onmouseover="hghl(['widget_leads_fk_winget_leads_0','stat_sites_fk_stat_sites'])" onmouseout="uhghl(['widget_leads_fk_winget_leads_0','stat_sites_fk_stat_sites'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#partners_sites.id'><use id='ref' x='436' y='172' xlink:href='#ref'/><title>Referred by widget_leads ( partner_site_id -&gt; id ) 
+Referred by stat_sites ( site_id -&gt; id ) </title></a>
+  <use id='nn' x='338' y='189' xlink:href='#nn'/><a xlink:href='#partners_sites.partner_id'><use id='idx' x='338' y='188' xlink:href='#idx'/><title>idx_partners_sites ( partner_id ) </title></a>
+<a xlink:href='#partners_sites.partner_id'><text id='gutfin.partners_sites.partner_id' x='355' y='199' onmouseover="hghl(['partners_sites_fk_partners_sites'])" onmouseout="uhghl(['partners_sites_fk_partners_sites'])">partner_id</text><title>partner_id
+* int</title></a>
+<a xlink:href='#partners_sites.partner_id'><use id='fk' x='436' y='188' xlink:href='#fk'/><title>References partners ( partner_id -&gt; id ) </title></a>
+  <use id='nn' x='338' y='205' xlink:href='#nn'/><a xlink:href='#partners_sites.domain_id'><use id='idx' x='338' y='204' xlink:href='#idx'/><title>idx_partners_sites_0 ( domain_id ) </title></a>
+<a xlink:href='#partners_sites.domain_id'><text id='gutfin.partners_sites.domain_id' x='355' y='215' onmouseover="hghl(['partners_sites_fk_partners_sites_0'])" onmouseout="uhghl(['partners_sites_fk_partners_sites_0'])">domain_id</text><title>domain_id
+* int
+Домен</title></a>
+<a xlink:href='#partners_sites.domain_id'><use id='fk' x='436' y='204' xlink:href='#fk'/><title>References traf_domains ( domain_id -&gt; id ) </title></a>
+  <use id='nn' x='338' y='221' xlink:href='#nn'/><a xlink:href='#partners_sites.is_reviewed'><text id='gutfin.partners_sites.is_reviewed' x='355' y='231'>is_reviewed</text><title>is_reviewed
+* tinyint
+Просмотрен ли сайт модераторами</title></a>
+  <use id='nn' x='338' y='237' xlink:href='#nn'/><a xlink:href='#partners_sites.is_banned'><text id='gutfin.partners_sites.is_banned' x='355' y='247'>is_banned</text><title>is_banned
+* tinyint
+Признак блокировки (сайта/домена)</title></a>
+
+<!-- ============= Table 'forms_fields' ============= -->
+<rect class='table' x='320' y='1016' width='112' height='160' rx='8' ry='8' style='stroke:none'/>
+<path d='M 320.00 1044.00 L 320.00 1024.00 Q 320.00 1016.00 328.00 1016.00 L 424.00 1016.00 Q 432.00 1016.00 432.00 1024.00 L 432.00 1044.00 L320.00 1044.00 ' style='fill:url(#tbg_ff9999);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='320' y='1016' width='112' height='160' rx='8' ry='8' style='fill:none;stroke:#d0a5a5'/>
+<line class='delim' x1='320.000000' y1='1044.000000' x2='432.000000' y2='1044.000000' style='stroke:#d0a5a5'/>
+<line class='delim' x1='336.000000' y1='1044.000000' x2='336.000000' y2='1176.000000' style='stroke:#d0a5a5'/>
+<line class='delim' x1='420.000000' y1='1044.000000' x2='420.000000' y2='1176.000000' style='stroke:#d0a5a5'/>
+<a xlink:href='#forms_fields'><text x='337' y='1036'>forms_fields</text><title>Table gutfin.forms_fields
+Вопросы в анкете</title></a>
+  <use id='nn' x='322' y='1053' xlink:href='#nn'/><a xlink:href='#forms_fields.id'><use id='pk' x='322' y='1052' xlink:href='#pk'/><title>Pk pk_forms_questions ( id ) </title></a>
+<a xlink:href='#forms_fields.id'><text id='gutfin.forms_fields.id' x='339' y='1063' onmouseover="hghl(['widget_apps_fields_data_fk_widget_apps_fields_data_0'])" onmouseout="uhghl(['widget_apps_fields_data_fk_widget_apps_fields_data_0'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#forms_fields.id'><use id='ref' x='420' y='1052' xlink:href='#ref'/><title>Referred by widget_apps_fields_data ( form_field_id -&gt; id ) </title></a>
+  <use id='nn' x='322' y='1069' xlink:href='#nn'/><a xlink:href='#forms_fields.form_id'><use id='idx' x='322' y='1068' xlink:href='#idx'/><title>idx_forms_questions ( form_id ) </title></a>
+<a xlink:href='#forms_fields.form_id'><text id='gutfin.forms_fields.form_id' x='339' y='1079' onmouseover="hghl(['forms_fields_fk_forms_questions'])" onmouseout="uhghl(['forms_fields_fk_forms_questions'])">form_id</text><title>form_id
+* int
+Форма</title></a>
+<a xlink:href='#forms_fields.form_id'><use id='fk' x='420' y='1068' xlink:href='#fk'/><title>References forms ( form_id -&gt; id ) </title></a>
+  <use id='nn' x='322' y='1085' xlink:href='#nn'/><a xlink:href='#forms_fields.label'><text id='gutfin.forms_fields.label' x='339' y='1095'>label</text><title>label
+* varchar(255)
+Метка</title></a>
+  <use id='nn' x='322' y='1101' xlink:href='#nn'/><a xlink:href='#forms_fields.placeholder'><text id='gutfin.forms_fields.placeholder' x='339' y='1111'>placeholder</text><title>placeholder
+* varchar(255)
+Значение в поле (placeholder)</title></a>
+  <use id='nn' x='322' y='1117' xlink:href='#nn'/><a xlink:href='#forms_fields.field_type'><text id='gutfin.forms_fields.field_type' x='339' y='1127'>field_type</text><title>field_type
+* enum('text','select','checkbox','texarea','email','number','phone')  default 'text'
+Тип поля</title></a>
+  <use id='nn' x='322' y='1133' xlink:href='#nn'/><a xlink:href='#forms_fields.updated_at'><text id='gutfin.forms_fields.updated_at' x='339' y='1143'>updated_at</text><title>updated_at
+* int
+Последнее изменение</title></a>
+  <use id='nn' x='322' y='1149' xlink:href='#nn'/><a xlink:href='#forms_fields.created_at'><text id='gutfin.forms_fields.created_at' x='339' y='1159'>created_at</text><title>created_at
+* int
+Дата создания</title></a>
+
+<!-- ============= Table 'stat_sites' ============= -->
+<rect class='table' x='64' y='104' width='144' height='192' rx='8' ry='8' style='stroke:none'/>
+<path d='M 64.00 132.00 L 64.00 112.00 Q 64.00 104.00 72.00 104.00 L 200.00 104.00 Q 208.00 104.00 208.00 112.00 L 208.00 132.00 L64.00 132.00 ' style='fill:url(#tbg_ffcb65);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='64' y='104' width='144' height='192' rx='8' ry='8' style='fill:none;stroke:#d0c1a5'/>
+<line class='delim' x1='64.000000' y1='132.000000' x2='208.000000' y2='132.000000' style='stroke:#d0c1a5'/>
+<line class='delim' x1='80.000000' y1='132.000000' x2='80.000000' y2='296.000000' style='stroke:#d0c1a5'/>
+<line class='delim' x1='196.000000' y1='132.000000' x2='196.000000' y2='296.000000' style='stroke:#d0c1a5'/>
+<a xlink:href='#stat_sites'><text x='105' y='124'>stat_sites</text><title>Table gutfin.stat_sites
+Статистика по сайтам</title></a>
+  <use id='nn' x='66' y='141' xlink:href='#nn'/><a xlink:href='#stat_sites.id'><use id='pk' x='66' y='140' xlink:href='#pk'/><title>Pk pk_stat_widgets_0 ( id ) </title></a>
+<a xlink:href='#stat_sites.id'><text id='gutfin.stat_sites.id' x='83' y='151'>id</text><title>id
+* int</title></a>
+  <use id='nn' x='66' y='157' xlink:href='#nn'/><a xlink:href='#stat_sites.site_id'><use id='unq' x='66' y='156' xlink:href='#unq'/><title>idx_stat_widgets_0 ( site_id ) Unq idx_site_id_date ( site_id, date ) </title></a>
+<a xlink:href='#stat_sites.site_id'><text id='gutfin.stat_sites.site_id' x='83' y='167' onmouseover="hghl(['stat_sites_fk_stat_sites'])" onmouseout="uhghl(['stat_sites_fk_stat_sites'])">site_id</text><title>site_id
+* int
+Сайт партнёра</title></a>
+<a xlink:href='#stat_sites.site_id'><use id='fk' x='196' y='156' xlink:href='#fk'/><title>References partners_sites ( site_id -&gt; id ) </title></a>
+  <use id='nn' x='66' y='173' xlink:href='#nn'/><a xlink:href='#stat_sites.date'><use id='unq' x='66' y='172' xlink:href='#unq'/><title>Unq idx_site_id_date ( site_id, date ) </title></a>
+<a xlink:href='#stat_sites.date'><text id='gutfin.stat_sites.date' x='83' y='183'>date</text><title>date
+* date
+Дата</title></a>
+  <use id='nn' x='66' y='189' xlink:href='#nn'/><a xlink:href='#stat_sites.hits'><text id='gutfin.stat_sites.hits' x='83' y='199'>hits</text><title>hits
+* int
+Хиты (загрузки виджета)</title></a>
+  <use id='nn' x='66' y='205' xlink:href='#nn'/><a xlink:href='#stat_sites.hosts'><text id='gutfin.stat_sites.hosts' x='83' y='215'>hosts</text><title>hosts
+* int
+Хосты (уникальные посетители)</title></a>
+  <use id='nn' x='66' y='221' xlink:href='#nn'/><a xlink:href='#stat_sites.total_apps'><text id='gutfin.stat_sites.total_apps' x='83' y='231'>total_apps</text><title>total_apps
+* int
+Всего заявок</title></a>
+  <use id='nn' x='66' y='237' xlink:href='#nn'/><a xlink:href='#stat_sites.completed_apps'><text id='gutfin.stat_sites.completed_apps' x='83' y='247'>completed_apps</text><title>completed_apps
+* int
+Завершенных заявок</title></a>
+  <use id='nn' x='66' y='253' xlink:href='#nn'/><a xlink:href='#stat_sites.approved_apps'><text id='gutfin.stat_sites.approved_apps' x='83' y='263'>approved_apps</text><title>approved_apps
+* int
+Одобреных заявок</title></a>
+  <use id='nn' x='66' y='269' xlink:href='#nn'/><a xlink:href='#stat_sites.money'><text id='gutfin.stat_sites.money' x='83' y='279'>money</text><title>money
+* double
+Начислено денег</title></a>
+
+<!-- ============= Table 'stat_partners' ============= -->
+<rect class='table' x='64' y='312' width='144' height='192' rx='8' ry='8' style='stroke:none'/>
+<path d='M 64.00 340.00 L 64.00 320.00 Q 64.00 312.00 72.00 312.00 L 200.00 312.00 Q 208.00 312.00 208.00 320.00 L 208.00 340.00 L64.00 340.00 ' style='fill:url(#tbg_ffcb65);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='64' y='312' width='144' height='192' rx='8' ry='8' style='fill:none;stroke:#d0c1a5'/>
+<line class='delim' x1='64.000000' y1='340.000000' x2='208.000000' y2='340.000000' style='stroke:#d0c1a5'/>
+<line class='delim' x1='80.000000' y1='340.000000' x2='80.000000' y2='504.000000' style='stroke:#d0c1a5'/>
+<line class='delim' x1='196.000000' y1='340.000000' x2='196.000000' y2='504.000000' style='stroke:#d0c1a5'/>
+<a xlink:href='#stat_partners'><text x='94' y='332'>stat_partners</text><title>Table gutfin.stat_partners
+Статистика по сайтам</title></a>
+  <use id='nn' x='66' y='349' xlink:href='#nn'/><a xlink:href='#stat_partners.id'><use id='pk' x='66' y='348' xlink:href='#pk'/><title>Pk pk_stat_widgets_1 ( id ) </title></a>
+<a xlink:href='#stat_partners.id'><text id='gutfin.stat_partners.id' x='83' y='359'>id</text><title>id
+* int</title></a>
+  <use id='nn' x='66' y='365' xlink:href='#nn'/><a xlink:href='#stat_partners.partner_id'><use id='unq' x='66' y='364' xlink:href='#unq'/><title>idx_stat_widgets_1 ( partner_id ) Unq idx_site_id_date_0 ( partner_id, date ) </title></a>
+<a xlink:href='#stat_partners.partner_id'><text id='gutfin.stat_partners.partner_id' x='83' y='375' onmouseover="hghl(['stat_partners_fk_stat_partners'])" onmouseout="uhghl(['stat_partners_fk_stat_partners'])">partner_id</text><title>partner_id
+* int
+Сайт партнёра</title></a>
+<a xlink:href='#stat_partners.partner_id'><use id='fk' x='196' y='364' xlink:href='#fk'/><title>References partners ( partner_id -&gt; id ) </title></a>
+  <use id='nn' x='66' y='381' xlink:href='#nn'/><a xlink:href='#stat_partners.date'><use id='unq' x='66' y='380' xlink:href='#unq'/><title>Unq idx_site_id_date_0 ( partner_id, date ) </title></a>
+<a xlink:href='#stat_partners.date'><text id='gutfin.stat_partners.date' x='83' y='391'>date</text><title>date
+* date
+Дата</title></a>
+  <use id='nn' x='66' y='397' xlink:href='#nn'/><a xlink:href='#stat_partners.hits'><text id='gutfin.stat_partners.hits' x='83' y='407'>hits</text><title>hits
+* int
+Хиты (загрузки виджета)</title></a>
+  <use id='nn' x='66' y='413' xlink:href='#nn'/><a xlink:href='#stat_partners.hosts'><text id='gutfin.stat_partners.hosts' x='83' y='423'>hosts</text><title>hosts
+* int
+Хосты (уникальные посетители)</title></a>
+  <use id='nn' x='66' y='429' xlink:href='#nn'/><a xlink:href='#stat_partners.total_apps'><text id='gutfin.stat_partners.total_apps' x='83' y='439'>total_apps</text><title>total_apps
+* int
+Всего заявок</title></a>
+  <use id='nn' x='66' y='445' xlink:href='#nn'/><a xlink:href='#stat_partners.completed_apps'><text id='gutfin.stat_partners.completed_apps' x='83' y='455'>completed_apps</text><title>completed_apps
+* int
+Завершенных заявок</title></a>
+  <use id='nn' x='66' y='461' xlink:href='#nn'/><a xlink:href='#stat_partners.approved_apps'><text id='gutfin.stat_partners.approved_apps' x='83' y='471'>approved_apps</text><title>approved_apps
+* int
+Одобреных заявок</title></a>
+  <use id='nn' x='66' y='477' xlink:href='#nn'/><a xlink:href='#stat_partners.money'><text id='gutfin.stat_partners.money' x='83' y='487'>money</text><title>money
+* double
+Начислено денег</title></a>
+
+<!-- ============= Table 'clients_persons' ============= -->
+<rect class='table' x='768' y='744' width='144' height='240' rx='8' ry='8' style='stroke:none'/>
+<path d='M 768.00 772.00 L 768.00 752.00 Q 768.00 744.00 776.00 744.00 L 904.00 744.00 Q 912.00 744.00 912.00 752.00 L 912.00 772.00 L768.00 772.00 ' style='fill:url(#tbg_c1d8ee);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='768' y='744' width='144' height='240' rx='8' ry='8' style='fill:none;stroke:#a5bbd0'/>
+<line class='delim' x1='768.000000' y1='772.000000' x2='912.000000' y2='772.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='784.000000' y1='772.000000' x2='784.000000' y2='984.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='900.000000' y1='772.000000' x2='900.000000' y2='984.000000' style='stroke:#a5bbd0'/>
+<a xlink:href='#clients_persons'><text x='792' y='764'>clients_persons</text><title>Table gutfin.clients_persons
+Клиенты</title></a>
+  <use id='nn' x='770' y='781' xlink:href='#nn'/><a xlink:href='#clients_persons.id'><use id='pk' x='770' y='780' xlink:href='#pk'/><title>Pk pk_clients_persons ( id ) </title></a>
+<a xlink:href='#clients_persons.id'><text id='gutfin.clients_persons.id' x='787' y='791' onmouseover="hghl(['widget_apps_fk_widget_apps_2'])" onmouseout="uhghl(['widget_apps_fk_widget_apps_2'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#clients_persons.id'><use id='ref' x='900' y='780' xlink:href='#ref'/><title>Referred by widget_apps ( person_id -&gt; id ) </title></a>
+  <use id='nn' x='770' y='797' xlink:href='#nn'/><a xlink:href='#clients_persons.firstname'><text id='gutfin.clients_persons.firstname' x='787' y='807'>firstname</text><title>firstname
+* varchar(255)
+Имя</title></a>
+  <use id='nn' x='770' y='813' xlink:href='#nn'/><a xlink:href='#clients_persons.midlename'><text id='gutfin.clients_persons.midlename' x='787' y='823'>midlename</text><title>midlename
+* varchar(255)
+Отчество</title></a>
+  <use id='nn' x='770' y='829' xlink:href='#nn'/><a xlink:href='#clients_persons.lastname'><text id='gutfin.clients_persons.lastname' x='787' y='839'>lastname</text><title>lastname
+* varchar(255)
+Фамилия</title></a>
+  <use id='nn' x='770' y='845' xlink:href='#nn'/><a xlink:href='#clients_persons.birthday'><text id='gutfin.clients_persons.birthday' x='787' y='855'>birthday</text><title>birthday
+* date
+День рождения</title></a>
+  <use id='nn' x='770' y='861' xlink:href='#nn'/><a xlink:href='#clients_persons.passport_series'><text id='gutfin.clients_persons.passport_series' x='787' y='871'>passport_series</text><title>passport_series
+* smallint default 0</title></a>
+  <use id='nn' x='770' y='877' xlink:href='#nn'/><a xlink:href='#clients_persons.passport_number'><text id='gutfin.clients_persons.passport_number' x='787' y='887'>passport_number</text><title>passport_number
+* mediumint default 0</title></a>
+  <use id='nn' x='770' y='893' xlink:href='#nn'/><a xlink:href='#clients_persons.passport_date'><text id='gutfin.clients_persons.passport_date' x='787' y='903'>passport_date</text><title>passport_date
+* date</title></a>
+  <use id='nn' x='770' y='909' xlink:href='#nn'/><a xlink:href='#clients_persons.gender'><text id='gutfin.clients_persons.gender' x='787' y='919'>gender</text><title>gender
+* set('m','f')  default 'M'
+Пол</title></a>
+  <a xlink:href='#clients_persons.email'><text id='gutfin.clients_persons.email' x='787' y='935'>email</text><title>email
+varchar(255)
+E-Mail</title></a>
+  <a xlink:href='#clients_persons.phone'><text id='gutfin.clients_persons.phone' x='787' y='951'>phone</text><title>phone
+varchar(20)
+Телефон</title></a>
+  <a xlink:href='#clients_persons.user_id'><use id='idx' x='770' y='956' xlink:href='#idx'/><title>idx_clients_persons ( user_id ) </title></a>
+<a xlink:href='#clients_persons.user_id'><text id='gutfin.clients_persons.user_id' x='787' y='967' onmouseover="hghl(['clients_persons_fk_clients_persons'])" onmouseout="uhghl(['clients_persons_fk_clients_persons'])">user_id</text><title>user_id
+int
+Пользователь, если существует</title></a>
+<a xlink:href='#clients_persons.user_id'><use id='fk' x='900' y='956' xlink:href='#fk'/><title>References user ( user_id -&gt; id ) </title></a>
+
+<!-- ============= Table 'leads_events_types' ============= -->
+<rect class='table' x='896' y='312' width='128' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 896.00 340.00 L 896.00 320.00 Q 896.00 312.00 904.00 312.00 L 1016.00 312.00 Q 1024.00 312.00 1024.00 320.00 L 1024.00 340.00 L896.00 340.00 ' style='fill:url(#tbg_ccffcc);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='896' y='312' width='128' height='80' rx='8' ry='8' style='fill:none;stroke:#a5d0a5'/>
+<line class='delim' x1='896.000000' y1='340.000000' x2='1024.000000' y2='340.000000' style='stroke:#a5d0a5'/>
+<line class='delim' x1='912.000000' y1='340.000000' x2='912.000000' y2='392.000000' style='stroke:#a5d0a5'/>
+<line class='delim' x1='1012.000000' y1='340.000000' x2='1012.000000' y2='392.000000' style='stroke:#a5d0a5'/>
+<a xlink:href='#leads_events_types'><text x='900' y='332'>leads_events_types</text><title>Table gutfin.leads_events_types
+Типы событий у лида</title></a>
+  <use id='nn' x='898' y='349' xlink:href='#nn'/><a xlink:href='#leads_events_types.id'><use id='pk' x='898' y='348' xlink:href='#pk'/><title>Pk pk_leads_events_types ( id ) </title></a>
+<a xlink:href='#leads_events_types.id'><text id='gutfin.leads_events_types.id' x='915' y='359' onmouseover="hghl(['widget_lead_events_fk_winget_lead_events'])" onmouseout="uhghl(['widget_lead_events_fk_winget_lead_events'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#leads_events_types.id'><use id='ref' x='1012' y='348' xlink:href='#ref'/><title>Referred by widget_lead_events ( event_type_id -&gt; id ) </title></a>
+  <use id='nn' x='898' y='365' xlink:href='#nn'/><a xlink:href='#leads_events_types.name'><text id='gutfin.leads_events_types.name' x='915' y='375'>name</text><title>name
+* varchar(255)
+Название события</title></a>
+
+<!-- ============= Table 'widget_lead_events_data' ============= -->
+<rect class='table' x='928' y='440' width='160' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 928.00 468.00 L 928.00 448.00 Q 928.00 440.00 936.00 440.00 L 1080.00 440.00 Q 1088.00 440.00 1088.00 448.00 L 1088.00 468.00 L928.00 468.00 ' style='fill:url(#tbg_ccffcc);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='928' y='440' width='160' height='80' rx='8' ry='8' style='fill:none;stroke:#a5d0a5'/>
+<line class='delim' x1='928.000000' y1='468.000000' x2='1088.000000' y2='468.000000' style='stroke:#a5d0a5'/>
+<line class='delim' x1='944.000000' y1='468.000000' x2='944.000000' y2='520.000000' style='stroke:#a5d0a5'/>
+<line class='delim' x1='1076.000000' y1='468.000000' x2='1076.000000' y2='520.000000' style='stroke:#a5d0a5'/>
+<a xlink:href='#widget_lead_events_data'><text x='932' y='460'>widget_lead_events_data</text><title>Table gutfin.widget_lead_events_data
+Данные о событии, если они необходимы</title></a>
+  <use id='nn' x='930' y='477' xlink:href='#nn'/><a xlink:href='#widget_lead_events_data.widget_lead_event_id'><use id='pk' x='930' y='476' xlink:href='#pk'/><title>Pk pk_widget_lead_events_data ( widget_lead_event_id ) </title></a>
+<a xlink:href='#widget_lead_events_data.widget_lead_event_id'><text id='gutfin.widget_lead_events_data.widget_lead_event_id' x='947' y='487' onmouseover="hghl(['widget_lead_events_data_fk_widget_lead_events_data'])" onmouseout="uhghl(['widget_lead_events_data_fk_widget_lead_events_data'])">widget_lead_event_id</text><title>widget_lead_event_id
+* int</title></a>
+<a xlink:href='#widget_lead_events_data.widget_lead_event_id'><use id='fk' x='1076' y='476' xlink:href='#fk'/><title>References widget_lead_events ( widget_lead_event_id -&gt; id ) </title></a>
+  <a xlink:href='#widget_lead_events_data.data'><text id='gutfin.widget_lead_events_data.data' x='947' y='503'>data</text><title>data
+text
+Данные события (например в JSON-формате)</title></a>
+
+<!-- ============= Table 'stat_total' ============= -->
+<rect class='table' x='48' y='1096' width='176' height='144' rx='8' ry='8' style='stroke:none'/>
+<path d='M 48.00 1124.00 L 48.00 1104.00 Q 48.00 1096.00 56.00 1096.00 L 216.00 1096.00 Q 224.00 1096.00 224.00 1104.00 L 224.00 1124.00 L48.00 1124.00 ' style='fill:url(#tbg_cccc00);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='48' y='1096' width='176' height='144' rx='8' ry='8' style='fill:none;stroke:#d0d0a5'/>
+<line class='delim' x1='48.000000' y1='1124.000000' x2='224.000000' y2='1124.000000' style='stroke:#d0d0a5'/>
+<line class='delim' x1='64.000000' y1='1124.000000' x2='64.000000' y2='1240.000000' style='stroke:#d0d0a5'/>
+<line class='delim' x1='212.000000' y1='1124.000000' x2='212.000000' y2='1240.000000' style='stroke:#d0d0a5'/>
+<a xlink:href='#stat_total'><text x='106' y='1116'>stat_total</text><title>Table gutfin.stat_total
+Общая статистика по системе</title></a>
+  <use id='nn' x='50' y='1133' xlink:href='#nn'/><a xlink:href='#stat_total.id'><use id='pk' x='50' y='1132' xlink:href='#pk'/><title>Pk pk_stat_total ( id ) </title></a>
+<a xlink:href='#stat_total.id'><text id='gutfin.stat_total.id' x='67' y='1143'>id</text><title>id
+* int</title></a>
+  <use id='nn' x='50' y='1149' xlink:href='#nn'/><a xlink:href='#stat_total.date'><use id='unq' x='50' y='1148' xlink:href='#unq'/><title>Unq idx_date ( date ) </title></a>
+<a xlink:href='#stat_total.date'><text id='gutfin.stat_total.date' x='67' y='1159'>date</text><title>date
+* date</title></a>
+  <a xlink:href='#stat_total.widget_hits'><text id='gutfin.stat_total.widget_hits' x='67' y='1175'>widget_hits</text><title>widget_hits
+int
+Общее количество загрузек виджета</title></a>
+  <use id='nn' x='50' y='1181' xlink:href='#nn'/><a xlink:href='#stat_total.widget_hosts'><text id='gutfin.stat_total.widget_hosts' x='67' y='1191'>widget_hosts</text><title>widget_hosts
+* int
+Уникальных хостов виджета</title></a>
+  <use id='nn' x='50' y='1197' xlink:href='#nn'/><a xlink:href='#stat_total.widget_apps_total'><text id='gutfin.stat_total.widget_apps_total' x='67' y='1207'>widget_apps_total</text><title>widget_apps_total
+* int
+Всего заявок</title></a>
+  <use id='nn' x='50' y='1213' xlink:href='#nn'/><a xlink:href='#stat_total.widget_apps_complete'><text id='gutfin.stat_total.widget_apps_complete' x='67' y='1223'>widget_apps_complete</text><title>widget_apps_complete
+* int
+Полностью оформленных заявок</title></a>
+
+<!-- ============= Table 'stat_forms' ============= -->
+<rect class='table' x='48' y='888' width='144' height='176' rx='8' ry='8' style='stroke:none'/>
+<path d='M 48.00 916.00 L 48.00 896.00 Q 48.00 888.00 56.00 888.00 L 184.00 888.00 Q 192.00 888.00 192.00 896.00 L 192.00 916.00 L48.00 916.00 ' style='fill:url(#tbg_cccc00);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='48' y='888' width='144' height='176' rx='8' ry='8' style='fill:none;stroke:#d0d0a5'/>
+<line class='delim' x1='48.000000' y1='916.000000' x2='192.000000' y2='916.000000' style='stroke:#d0d0a5'/>
+<line class='delim' x1='64.000000' y1='916.000000' x2='64.000000' y2='1064.000000' style='stroke:#d0d0a5'/>
+<line class='delim' x1='180.000000' y1='916.000000' x2='180.000000' y2='1064.000000' style='stroke:#d0d0a5'/>
+<a xlink:href='#stat_forms'><text x='86' y='908'>stat_forms</text><title>Table gutfin.stat_forms
+Статистика по формам</title></a>
+  <use id='nn' x='50' y='925' xlink:href='#nn'/><a xlink:href='#stat_forms.id'><use id='pk' x='50' y='924' xlink:href='#pk'/><title>Pk pk_stat_widgets_2 ( id ) </title></a>
+<a xlink:href='#stat_forms.id'><text id='gutfin.stat_forms.id' x='67' y='935'>id</text><title>id
+* int</title></a>
+  <use id='nn' x='50' y='941' xlink:href='#nn'/><a xlink:href='#stat_forms.form_id'><use id='unq' x='50' y='940' xlink:href='#unq'/><title>idx_stat_widgets_2 ( form_id ) Unq idx_stat_widgets_date_0 ( form_id, date ) </title></a>
+<a xlink:href='#stat_forms.form_id'><text id='gutfin.stat_forms.form_id' x='67' y='951' onmouseover="hghl(['stat_forms_fk_stat_forms'])" onmouseout="uhghl(['stat_forms_fk_stat_forms'])">form_id</text><title>form_id
+* int
+Форма</title></a>
+<a xlink:href='#stat_forms.form_id'><use id='fk' x='180' y='940' xlink:href='#fk'/><title>References forms ( form_id -&gt; id ) </title></a>
+  <use id='nn' x='50' y='957' xlink:href='#nn'/><a xlink:href='#stat_forms.date'><use id='unq' x='50' y='956' xlink:href='#unq'/><title>Unq idx_stat_widgets_date_0 ( form_id, date ) </title></a>
+<a xlink:href='#stat_forms.date'><text id='gutfin.stat_forms.date' x='67' y='967'>date</text><title>date
+* date
+Дата</title></a>
+  <use id='nn' x='50' y='973' xlink:href='#nn'/><a xlink:href='#stat_forms.hits'><text id='gutfin.stat_forms.hits' x='67' y='983'>hits</text><title>hits
+* int
+Хиты (загрузки виджета)</title></a>
+  <use id='nn' x='50' y='989' xlink:href='#nn'/><a xlink:href='#stat_forms.hosts'><text id='gutfin.stat_forms.hosts' x='67' y='999'>hosts</text><title>hosts
+* int
+Хосты (уникальные посетители)</title></a>
+  <use id='nn' x='50' y='1005' xlink:href='#nn'/><a xlink:href='#stat_forms.total_apps'><text id='gutfin.stat_forms.total_apps' x='67' y='1015'>total_apps</text><title>total_apps
+* int
+Всего заявок</title></a>
+  <use id='nn' x='50' y='1021' xlink:href='#nn'/><a xlink:href='#stat_forms.completed_apps'><text id='gutfin.stat_forms.completed_apps' x='67' y='1031'>completed_apps</text><title>completed_apps
+* int
+Завершенных заявок</title></a>
+  <use id='nn' x='50' y='1037' xlink:href='#nn'/><a xlink:href='#stat_forms.approved_apps'><text id='gutfin.stat_forms.approved_apps' x='67' y='1047'>approved_apps</text><title>approved_apps
+* int
+Одобреных заявок</title></a>
+
+<!-- ============= Table 'widget_leads' ============= -->
+<rect class='table' x='576' y='312' width='144' height='240' rx='8' ry='8' style='stroke:none'/>
+<path d='M 576.00 340.00 L 576.00 320.00 Q 576.00 312.00 584.00 312.00 L 712.00 312.00 Q 720.00 312.00 720.00 320.00 L 720.00 340.00 L576.00 340.00 ' style='fill:url(#tbg_ccffcc);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='576' y='312' width='144' height='240' rx='8' ry='8' style='fill:none;stroke:#a5d0a5'/>
+<line class='delim' x1='576.000000' y1='340.000000' x2='720.000000' y2='340.000000' style='stroke:#a5d0a5'/>
+<line class='delim' x1='592.000000' y1='340.000000' x2='592.000000' y2='552.000000' style='stroke:#a5d0a5'/>
+<line class='delim' x1='708.000000' y1='340.000000' x2='708.000000' y2='552.000000' style='stroke:#a5d0a5'/>
+<a xlink:href='#widget_leads'><text x='606' y='332'>widget_leads</text><title>Table gutfin.widget_leads
+Лиды к виджетам</title></a>
+  <use id='nn' x='578' y='349' xlink:href='#nn'/><a xlink:href='#widget_leads.id'><use id='pk' x='578' y='348' xlink:href='#pk'/><title>Pk pk_winget_leads ( id ) </title></a>
+<a xlink:href='#widget_leads.id'><text id='gutfin.widget_leads.id' x='595' y='359' onmouseover="hghl(['widget_lead_events_fk_lead_events','widget_apps_fk_widget_apps'])" onmouseout="uhghl(['widget_lead_events_fk_lead_events','widget_apps_fk_widget_apps'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#widget_leads.id'><use id='ref' x='708' y='348' xlink:href='#ref'/><title>Referred by widget_lead_events ( lead_id -&gt; id ) 
+Referred by widget_apps ( widget_lead_id -&gt; id ) </title></a>
+  <use id='nn' x='578' y='365' xlink:href='#nn'/><a xlink:href='#widget_leads.created_at'><text id='gutfin.widget_leads.created_at' x='595' y='375'>created_at</text><title>created_at
+* int</title></a>
+  <use id='nn' x='578' y='381' xlink:href='#nn'/><a xlink:href='#widget_leads.widget_id'><use id='idx' x='578' y='380' xlink:href='#idx'/><title>widget_id ( widget_id ) </title></a>
+<a xlink:href='#widget_leads.widget_id'><text id='gutfin.widget_leads.widget_id' x='595' y='391' onmouseover="hghl(['widget_leads_winget_leads_ibfk_1'])" onmouseout="uhghl(['widget_leads_winget_leads_ibfk_1'])">widget_id</text><title>widget_id
+* int</title></a>
+<a xlink:href='#widget_leads.widget_id'><use id='fk' x='708' y='380' xlink:href='#fk'/><title>References widgets ( widget_id -&gt; id ) </title></a>
+  <a xlink:href='#widget_leads.ip'><text id='gutfin.widget_leads.ip' x='595' y='407'>ip</text><title>ip
+int
+IP-адрес клиента</title></a>
+  <a xlink:href='#widget_leads.user_agent_id'><use id='idx' x='578' y='412' xlink:href='#idx'/><title>idx_winget_leads ( user_agent_id ) </title></a>
+<a xlink:href='#widget_leads.user_agent_id'><text id='gutfin.widget_leads.user_agent_id' x='595' y='423' onmouseover="hghl(['widget_leads_fk_winget_leads'])" onmouseout="uhghl(['widget_leads_fk_winget_leads'])">user_agent_id</text><title>user_agent_id
+int
+User Agent браузера клиента</title></a>
+<a xlink:href='#widget_leads.user_agent_id'><use id='fk' x='708' y='412' xlink:href='#fk'/><title>References browser_user_agents ( user_agent_id -&gt; id ) </title></a>
+  <use id='nn' x='578' y='429' xlink:href='#nn'/><a xlink:href='#widget_leads.partner_site_id'><use id='idx' x='578' y='428' xlink:href='#idx'/><title>idx_winget_leads_0 ( partner_site_id ) </title></a>
+<a xlink:href='#widget_leads.partner_site_id'><text id='gutfin.widget_leads.partner_site_id' x='595' y='439' onmouseover="hghl(['widget_leads_fk_winget_leads_0'])" onmouseout="uhghl(['widget_leads_fk_winget_leads_0'])">partner_site_id</text><title>partner_site_id
+* int
+Сайт, на котором произошел лид</title></a>
+<a xlink:href='#widget_leads.partner_site_id'><use id='fk' x='708' y='428' xlink:href='#fk'/><title>References partners_sites ( partner_site_id -&gt; id ) </title></a>
+  <a xlink:href='#widget_leads.traf_referer_id'><use id='idx' x='578' y='444' xlink:href='#idx'/><title>idx_winget_leads_1 ( traf_referer_id ) </title></a>
+<a xlink:href='#widget_leads.traf_referer_id'><text id='gutfin.widget_leads.traf_referer_id' x='595' y='455' onmouseover="hghl(['widget_leads_fk_winget_leads_1'])" onmouseout="uhghl(['widget_leads_fk_winget_leads_1'])">traf_referer_id</text><title>traf_referer_id
+int
+Источник траффика</title></a>
+<a xlink:href='#widget_leads.traf_referer_id'><use id='fk' x='708' y='444' xlink:href='#fk'/><title>References traf_referers ( traf_referer_id -&gt; id ) </title></a>
+  <use id='nn' x='578' y='461' xlink:href='#nn'/><a xlink:href='#widget_leads.events_count'><text id='gutfin.widget_leads.events_count' x='595' y='471'>events_count</text><title>events_count
+* int
+Количество событий (кеш)</title></a>
+  <use id='nn' x='578' y='477' xlink:href='#nn'/><a xlink:href='#widget_leads.hits'><text id='gutfin.widget_leads.hits' x='595' y='487'>hits</text><title>hits
+* int default 1
+Количество хитов (загрузок виджета) по данному лиду</title></a>
+  <a xlink:href='#widget_leads.status'><use id='idx' x='578' y='492' xlink:href='#idx'/><title>idx_widget_leads_last_online ( status, client_last_online ) 
+Для нахождения всех неактивных</title></a>
+<a xlink:href='#widget_leads.status'><text id='gutfin.widget_leads.status' x='595' y='503'>status</text><title>status
+enum('new','filling','completed','spam','rejected')  default 'new'
+Статус лида</title></a>
+  <use id='nn' x='578' y='509' xlink:href='#nn'/><a xlink:href='#widget_leads.client_last_online'><use id='idx' x='578' y='508' xlink:href='#idx'/><title>idx_widget_leads_last_online ( status, client_last_online ) 
+Для нахождения всех неактивных</title></a>
+<a xlink:href='#widget_leads.client_last_online'><text id='gutfin.widget_leads.client_last_online' x='595' y='519'>client_last_online</text><title>client_last_online
+* int
+Когда клиент последний раз был в онлайне (для отслеживания заброшеных лидов)</title></a>
+  <use id='nn' x='578' y='525' xlink:href='#nn'/><a xlink:href='#widget_leads.session_time'><text id='gutfin.widget_leads.session_time' x='595' y='535'>session_time</text><title>session_time
+* int
+Время онлайн</title></a>
+
+<!-- ============= Table 'widget_apps' ============= -->
+<rect class='table' x='544' y='776' width='128' height='192' rx='8' ry='8' style='stroke:none'/>
+<path d='M 544.00 804.00 L 544.00 784.00 Q 544.00 776.00 552.00 776.00 L 664.00 776.00 Q 672.00 776.00 672.00 784.00 L 672.00 804.00 L544.00 804.00 ' style='fill:url(#tbg_c1d8ee);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='544' y='776' width='128' height='192' rx='8' ry='8' style='fill:none;stroke:#a5bbd0'/>
+<line class='delim' x1='544.000000' y1='804.000000' x2='672.000000' y2='804.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='560.000000' y1='804.000000' x2='560.000000' y2='968.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='660.000000' y1='804.000000' x2='660.000000' y2='968.000000' style='stroke:#a5bbd0'/>
+<a xlink:href='#widget_apps'><text x='567' y='796'>widget_apps</text><title>Table gutfin.widget_apps
+Заявки из виджета</title></a>
+  <use id='nn' x='546' y='813' xlink:href='#nn'/><a xlink:href='#widget_apps.id'><use id='pk' x='546' y='812' xlink:href='#pk'/><title>Pk pk_widget_apps ( id ) </title></a>
+<a xlink:href='#widget_apps.id'><text id='gutfin.widget_apps.id' x='563' y='823' onmouseover="hghl(['widget_apps_fields_data_fk_widget_apps_fields_data'])" onmouseout="uhghl(['widget_apps_fields_data_fk_widget_apps_fields_data'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#widget_apps.id'><use id='ref' x='660' y='812' xlink:href='#ref'/><title>Referred by widget_apps_fields_data ( widget_app_id -&gt; id ) </title></a>
+  <use id='nn' x='546' y='829' xlink:href='#nn'/><a xlink:href='#widget_apps.created_at'><text id='gutfin.widget_apps.created_at' x='563' y='839'>created_at</text><title>created_at
+* timestamp default CURRENT_TIMESTAMP
+Дата создания</title></a>
+  <use id='nn' x='546' y='845' xlink:href='#nn'/><a xlink:href='#widget_apps.updated_at'><text id='gutfin.widget_apps.updated_at' x='563' y='855'>updated_at</text><title>updated_at
+* timestamp default '0000-00-00 00:00:00'</title></a>
+  <use id='nn' x='546' y='861' xlink:href='#nn'/><a xlink:href='#widget_apps.widget_lead_id'><use id='idx' x='546' y='860' xlink:href='#idx'/><title>idx_widget_apps ( widget_lead_id ) </title></a>
+<a xlink:href='#widget_apps.widget_lead_id'><text id='gutfin.widget_apps.widget_lead_id' x='563' y='871' onmouseover="hghl(['widget_apps_fk_widget_apps'])" onmouseout="uhghl(['widget_apps_fk_widget_apps'])">widget_lead_id</text><title>widget_lead_id
+* int
+Лид</title></a>
+<a xlink:href='#widget_apps.widget_lead_id'><use id='fk' x='660' y='860' xlink:href='#fk'/><title>References widget_leads ( widget_lead_id -&gt; id ) </title></a>
+  <use id='nn' x='546' y='877' xlink:href='#nn'/><a xlink:href='#widget_apps.form_id'><use id='idx' x='546' y='876' xlink:href='#idx'/><title>idx_widget_apps_0 ( form_id ) </title></a>
+<a xlink:href='#widget_apps.form_id'><text id='gutfin.widget_apps.form_id' x='563' y='887' onmouseover="hghl(['widget_apps_fk_widget_apps_0'])" onmouseout="uhghl(['widget_apps_fk_widget_apps_0'])">form_id</text><title>form_id
+* int
+Анкета</title></a>
+<a xlink:href='#widget_apps.form_id'><use id='fk' x='660' y='876' xlink:href='#fk'/><title>References forms ( form_id -&gt; id ) </title></a>
+  <use id='nn' x='546' y='893' xlink:href='#nn'/><a xlink:href='#widget_apps.widget_id'><use id='idx' x='546' y='892' xlink:href='#idx'/><title>idx_widget_apps_1 ( widget_id ) </title></a>
+<a xlink:href='#widget_apps.widget_id'><text id='gutfin.widget_apps.widget_id' x='563' y='903' onmouseover="hghl(['widget_apps_fk_widget_apps_1'])" onmouseout="uhghl(['widget_apps_fk_widget_apps_1'])">widget_id</text><title>widget_id
+* int
+Виджет</title></a>
+<a xlink:href='#widget_apps.widget_id'><use id='fk' x='660' y='892' xlink:href='#fk'/><title>References widgets ( widget_id -&gt; id ) </title></a>
+  <use id='nn' x='546' y='909' xlink:href='#nn'/><a xlink:href='#widget_apps.person_id'><use id='idx' x='546' y='908' xlink:href='#idx'/><title>idx_widget_apps_2 ( person_id ) </title></a>
+<a xlink:href='#widget_apps.person_id'><text id='gutfin.widget_apps.person_id' x='563' y='919' onmouseover="hghl(['widget_apps_fk_widget_apps_2'])" onmouseout="uhghl(['widget_apps_fk_widget_apps_2'])">person_id</text><title>person_id
+* int
+Клиент</title></a>
+<a xlink:href='#widget_apps.person_id'><use id='fk' x='660' y='908' xlink:href='#fk'/><title>References clients_persons ( person_id -&gt; id ) </title></a>
+  <a xlink:href='#widget_apps.is_complete'><text id='gutfin.widget_apps.is_complete' x='563' y='935'>is_complete</text><title>is_complete
+tinyint
+Признак, что форма заполнена окончательно</title></a>
+  <a xlink:href='#widget_apps.complete_time'><text id='gutfin.widget_apps.complete_time' x='563' y='951'>complete_time</text><title>complete_time
+int
+Время, потраченное на заполнение анкеты</title></a>
+
+<!-- ============= Table 'widgets' ============= -->
+<rect class='table' x='336' y='568' width='112' height='144' rx='8' ry='8' style='stroke:none'/>
+<path d='M 336.00 596.00 L 336.00 576.00 Q 336.00 568.00 344.00 568.00 L 440.00 568.00 Q 448.00 568.00 448.00 576.00 L 448.00 596.00 L336.00 596.00 ' style='fill:url(#tbg_ff00cc);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='336' y='568' width='112' height='144' rx='8' ry='8' style='fill:none;stroke:#d0a5c7'/>
+<line class='delim' x1='336.000000' y1='596.000000' x2='448.000000' y2='596.000000' style='stroke:#d0a5c7'/>
+<line class='delim' x1='352.000000' y1='596.000000' x2='352.000000' y2='712.000000' style='stroke:#d0a5c7'/>
+<line class='delim' x1='436.000000' y1='596.000000' x2='436.000000' y2='712.000000' style='stroke:#d0a5c7'/>
+<a xlink:href='#widgets'><text x='366' y='588'>widgets</text><title>Table gutfin.widgets
+Виджеты (у партнёров)</title></a>
+  <use id='nn' x='338' y='605' xlink:href='#nn'/><a xlink:href='#widgets.id'><use id='pk' x='338' y='604' xlink:href='#pk'/><title>Pk pk_widgets ( id ) </title></a>
+<a xlink:href='#widgets.id'><text id='gutfin.widgets.id' x='355' y='615' onmouseover="hghl(['widget_leads_winget_leads_ibfk_1','widget_apps_fk_widget_apps_1','widget_settings_fk_widget_settings','stat_widgets_fk_stat_widgets'])" onmouseout="uhghl(['widget_leads_winget_leads_ibfk_1','widget_apps_fk_widget_apps_1','widget_settings_fk_widget_settings','stat_widgets_fk_stat_widgets'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#widgets.id'><use id='ref' x='436' y='604' xlink:href='#ref'/><title>Referred by widget_leads ( widget_id -&gt; id ) 
+Referred by widget_apps ( widget_id -&gt; id ) 
+Referred by widget_settings ( widget_id -&gt; id ) 
+Referred by stat_widgets ( widget_id -&gt; id ) </title></a>
+  <use id='nn' x='338' y='621' xlink:href='#nn'/><a xlink:href='#widgets.created_at'><text id='gutfin.widgets.created_at' x='355' y='631'>created_at</text><title>created_at
+* int
+Дата создания</title></a>
+  <use id='nn' x='338' y='637' xlink:href='#nn'/><a xlink:href='#widgets.updated_at'><text id='gutfin.widgets.updated_at' x='355' y='647'>updated_at</text><title>updated_at
+* int
+Последние изменение</title></a>
+  <use id='nn' x='338' y='653' xlink:href='#nn'/><a xlink:href='#widgets.partner_id'><use id='idx' x='338' y='652' xlink:href='#idx'/><title>partner_id ( partner_id ) </title></a>
+<a xlink:href='#widgets.partner_id'><text id='gutfin.widgets.partner_id' x='355' y='663' onmouseover="hghl(['widgets_widgets_ibfk_1'])" onmouseout="uhghl(['widgets_widgets_ibfk_1'])">partner_id</text><title>partner_id
+* int
+Партнёр</title></a>
+<a xlink:href='#widgets.partner_id'><use id='fk' x='436' y='652' xlink:href='#fk'/><title>References partners ( partner_id -&gt; id ) </title></a>
+  <use id='nn' x='338' y='669' xlink:href='#nn'/><a xlink:href='#widgets.form_id'><use id='idx' x='338' y='668' xlink:href='#idx'/><title>idx_widgets ( form_id ) </title></a>
+<a xlink:href='#widgets.form_id'><text id='gutfin.widgets.form_id' x='355' y='679' onmouseover="hghl(['widgets_fk_widgets'])" onmouseout="uhghl(['widgets_fk_widgets'])">form_id</text><title>form_id
+* int</title></a>
+<a xlink:href='#widgets.form_id'><use id='fk' x='436' y='668' xlink:href='#fk'/><title>References forms ( form_id -&gt; id ) </title></a>
+  <use id='nn' x='338' y='685' xlink:href='#nn'/><a xlink:href='#widgets.name'><text id='gutfin.widgets.name' x='355' y='695'>name</text><title>name
+* varchar(255)
+Название виджета</title></a>
+
+<!-- ============= Table 'widget_settings' ============= -->
+<rect class='table' x='336' y='440' width='112' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 336.00 468.00 L 336.00 448.00 Q 336.00 440.00 344.00 440.00 L 440.00 440.00 Q 448.00 440.00 448.00 448.00 L 448.00 468.00 L336.00 468.00 ' style='fill:url(#tbg_ff00cc);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='336' y='440' width='112' height='80' rx='8' ry='8' style='fill:none;stroke:#d0a5c7'/>
+<line class='delim' x1='336.000000' y1='468.000000' x2='448.000000' y2='468.000000' style='stroke:#d0a5c7'/>
+<line class='delim' x1='352.000000' y1='468.000000' x2='352.000000' y2='520.000000' style='stroke:#d0a5c7'/>
+<line class='delim' x1='436.000000' y1='468.000000' x2='436.000000' y2='520.000000' style='stroke:#d0a5c7'/>
+<a xlink:href='#widget_settings'><text x='344' y='460'>widget_settings</text><title>Table gutfin.widget_settings
+Настройки виджета</title></a>
+  <use id='nn' x='338' y='477' xlink:href='#nn'/><a xlink:href='#widget_settings.widget_id'><use id='pk' x='338' y='476' xlink:href='#pk'/><title>Pk pk_widget_settings ( widget_id ) </title></a>
+<a xlink:href='#widget_settings.widget_id'><text id='gutfin.widget_settings.widget_id' x='355' y='487' onmouseover="hghl(['widget_settings_fk_widget_settings'])" onmouseout="uhghl(['widget_settings_fk_widget_settings'])">widget_id</text><title>widget_id
+* int</title></a>
+<a xlink:href='#widget_settings.widget_id'><use id='fk' x='436' y='476' xlink:href='#fk'/><title>References widgets ( widget_id -&gt; id ) </title></a>
+  <a xlink:href='#widget_settings.data'><text id='gutfin.widget_settings.data' x='355' y='503'>data</text><title>data
+text
+Временное поле пока не соберем список настроек</title></a>
+
+<!-- ============= Table 'traf_referers' ============= -->
+<rect class='table' x='880' y='88' width='96' height='112' rx='8' ry='8' style='stroke:none'/>
+<path d='M 880.00 116.00 L 880.00 96.00 Q 880.00 88.00 888.00 88.00 L 968.00 88.00 Q 976.00 88.00 976.00 96.00 L 976.00 116.00 L880.00 116.00 ' style='fill:url(#tbg_99ffcc);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='880' y='88' width='96' height='112' rx='8' ry='8' style='fill:none;stroke:#a5d0bb'/>
+<line class='delim' x1='880.000000' y1='116.000000' x2='976.000000' y2='116.000000' style='stroke:#a5d0bb'/>
+<line class='delim' x1='896.000000' y1='116.000000' x2='896.000000' y2='200.000000' style='stroke:#a5d0bb'/>
+<line class='delim' x1='964.000000' y1='116.000000' x2='964.000000' y2='200.000000' style='stroke:#a5d0bb'/>
+<a xlink:href='#traf_referers'><text x='888' y='108'>traf_referers</text><title>Table gutfin.traf_referers
+Источники траффика</title></a>
+  <use id='nn' x='882' y='125' xlink:href='#nn'/><a xlink:href='#traf_referers.id'><use id='pk' x='882' y='124' xlink:href='#pk'/><title>Pk pk_referers ( id ) </title></a>
+<a xlink:href='#traf_referers.id'><text id='gutfin.traf_referers.id' x='899' y='135' onmouseover="hghl(['widget_leads_fk_winget_leads_1','widget_leads_fk_winget_leads_1'])" onmouseout="uhghl(['widget_leads_fk_winget_leads_1','widget_leads_fk_winget_leads_1'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#traf_referers.id'><use id='ref' x='964' y='124' xlink:href='#ref'/><title>Referred by widget_leads ( traf_referer_id -&gt; id ) 
+Referred by widget_leads ( traf_referer_id -&gt; id ) </title></a>
+  <use id='nn' x='882' y='141' xlink:href='#nn'/><a xlink:href='#traf_referers.domain_id'><use id='idx' x='882' y='140' xlink:href='#idx'/><title>idx_traf_referers ( domain_id ) </title></a>
+<a xlink:href='#traf_referers.domain_id'><text id='gutfin.traf_referers.domain_id' x='899' y='151' onmouseover="hghl(['traf_referers_fk_traf_referers'])" onmouseout="uhghl(['traf_referers_fk_traf_referers'])">domain_id</text><title>domain_id
+* int
+Домен</title></a>
+<a xlink:href='#traf_referers.domain_id'><use id='fk' x='964' y='140' xlink:href='#fk'/><title>References traf_domains ( domain_id -&gt; id ) </title></a>
+  <a xlink:href='#traf_referers.hash'><use id='unq' x='882' y='156' xlink:href='#unq'/><title>Unq idx_hash ( hash ) </title></a>
+<a xlink:href='#traf_referers.hash'><text id='gutfin.traf_referers.hash' x='899' y='167'>hash</text><title>hash
+varchar(32)
+MD5-хеш URL, для уникальности</title></a>
+  <use id='nn' x='882' y='173' xlink:href='#nn'/><a xlink:href='#traf_referers.uri'><text id='gutfin.traf_referers.uri' x='899' y='183'>uri</text><title>uri
+* text
+URI</title></a>
+
+<!-- ============= Table 'widget_apps_fields_data' ============= -->
+<rect class='table' x='544' y='1080' width='160' height='96' rx='8' ry='8' style='stroke:none'/>
+<path d='M 544.00 1108.00 L 544.00 1088.00 Q 544.00 1080.00 552.00 1080.00 L 696.00 1080.00 Q 704.00 1080.00 704.00 1088.00 L 704.00 1108.00 L544.00 1108.00 ' style='fill:url(#tbg_c1d8ee);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='544' y='1080' width='160' height='96' rx='8' ry='8' style='fill:none;stroke:#a5bbd0'/>
+<line class='delim' x1='544.000000' y1='1108.000000' x2='704.000000' y2='1108.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='560.000000' y1='1108.000000' x2='560.000000' y2='1176.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='692.000000' y1='1108.000000' x2='692.000000' y2='1176.000000' style='stroke:#a5bbd0'/>
+<a xlink:href='#widget_apps_fields_data'><text x='549' y='1100'>widget_apps_fields_data</text><title>Table gutfin.widget_apps_fields_data
+Данные кастомных полей в заявке</title></a>
+  <use id='nn' x='546' y='1117' xlink:href='#nn'/><a xlink:href='#widget_apps_fields_data.widget_app_id'><use id='idx' x='546' y='1116' xlink:href='#idx'/><title>idx_widget_apps_fields_data ( widget_app_id ) </title></a>
+<a xlink:href='#widget_apps_fields_data.widget_app_id'><text id='gutfin.widget_apps_fields_data.widget_app_id' x='563' y='1127' onmouseover="hghl(['widget_apps_fields_data_fk_widget_apps_fields_data'])" onmouseout="uhghl(['widget_apps_fields_data_fk_widget_apps_fields_data'])">widget_app_id</text><title>widget_app_id
+* int
+Заявка</title></a>
+<a xlink:href='#widget_apps_fields_data.widget_app_id'><use id='fk' x='692' y='1116' xlink:href='#fk'/><title>References widget_apps ( widget_app_id -&gt; id ) </title></a>
+  <use id='nn' x='546' y='1133' xlink:href='#nn'/><a xlink:href='#widget_apps_fields_data.form_field_id'><use id='idx' x='546' y='1132' xlink:href='#idx'/><title>idx_widget_apps_fields_data_0 ( form_field_id ) </title></a>
+<a xlink:href='#widget_apps_fields_data.form_field_id'><text id='gutfin.widget_apps_fields_data.form_field_id' x='563' y='1143' onmouseover="hghl(['widget_apps_fields_data_fk_widget_apps_fields_data_0'])" onmouseout="uhghl(['widget_apps_fields_data_fk_widget_apps_fields_data_0'])">form_field_id</text><title>form_field_id
+* int
+Поле анкеты</title></a>
+<a xlink:href='#widget_apps_fields_data.form_field_id'><use id='fk' x='692' y='1132' xlink:href='#fk'/><title>References forms_fields ( form_field_id -&gt; id ) </title></a>
+  <a xlink:href='#widget_apps_fields_data.data'><text id='gutfin.widget_apps_fields_data.data' x='563' y='1159'>data</text><title>data
+text</title></a>
+
+<!-- ============= Table 'stat_widgets' ============= -->
+<rect class='table' x='64' y='568' width='144' height='192' rx='8' ry='8' style='stroke:none'/>
+<path d='M 64.00 596.00 L 64.00 576.00 Q 64.00 568.00 72.00 568.00 L 200.00 568.00 Q 208.00 568.00 208.00 576.00 L 208.00 596.00 L64.00 596.00 ' style='fill:url(#tbg_ffcb65);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='64' y='568' width='144' height='192' rx='8' ry='8' style='fill:none;stroke:#d0c1a5'/>
+<line class='delim' x1='64.000000' y1='596.000000' x2='208.000000' y2='596.000000' style='stroke:#d0c1a5'/>
+<line class='delim' x1='80.000000' y1='596.000000' x2='80.000000' y2='760.000000' style='stroke:#d0c1a5'/>
+<line class='delim' x1='196.000000' y1='596.000000' x2='196.000000' y2='760.000000' style='stroke:#d0c1a5'/>
+<a xlink:href='#stat_widgets'><text x='96' y='588'>stat_widgets</text><title>Table gutfin.stat_widgets
+Статистика по виджетам</title></a>
+  <use id='nn' x='66' y='605' xlink:href='#nn'/><a xlink:href='#stat_widgets.id'><use id='pk' x='66' y='604' xlink:href='#pk'/><title>Pk pk_stat_widgets ( id ) </title></a>
+<a xlink:href='#stat_widgets.id'><text id='gutfin.stat_widgets.id' x='83' y='615'>id</text><title>id
+* int</title></a>
+  <use id='nn' x='66' y='621' xlink:href='#nn'/><a xlink:href='#stat_widgets.widget_id'><use id='unq' x='66' y='620' xlink:href='#unq'/><title>idx_stat_widgets ( widget_id ) Unq idx_stat_widgets_date ( widget_id, date ) </title></a>
+<a xlink:href='#stat_widgets.widget_id'><text id='gutfin.stat_widgets.widget_id' x='83' y='631' onmouseover="hghl(['stat_widgets_fk_stat_widgets'])" onmouseout="uhghl(['stat_widgets_fk_stat_widgets'])">widget_id</text><title>widget_id
+* int
+Виджет</title></a>
+<a xlink:href='#stat_widgets.widget_id'><use id='fk' x='196' y='620' xlink:href='#fk'/><title>References widgets ( widget_id -&gt; id ) </title></a>
+  <use id='nn' x='66' y='637' xlink:href='#nn'/><a xlink:href='#stat_widgets.date'><use id='unq' x='66' y='636' xlink:href='#unq'/><title>Unq idx_stat_widgets_date ( widget_id, date ) </title></a>
+<a xlink:href='#stat_widgets.date'><text id='gutfin.stat_widgets.date' x='83' y='647'>date</text><title>date
+* date
+Дата</title></a>
+  <use id='nn' x='66' y='653' xlink:href='#nn'/><a xlink:href='#stat_widgets.hits'><text id='gutfin.stat_widgets.hits' x='83' y='663'>hits</text><title>hits
+* int
+Хиты (загрузки виджета)</title></a>
+  <use id='nn' x='66' y='669' xlink:href='#nn'/><a xlink:href='#stat_widgets.hosts'><text id='gutfin.stat_widgets.hosts' x='83' y='679'>hosts</text><title>hosts
+* int
+Хосты (уникальные посетители)</title></a>
+  <use id='nn' x='66' y='685' xlink:href='#nn'/><a xlink:href='#stat_widgets.total_apps'><text id='gutfin.stat_widgets.total_apps' x='83' y='695'>total_apps</text><title>total_apps
+* int
+Всего заявок</title></a>
+  <use id='nn' x='66' y='701' xlink:href='#nn'/><a xlink:href='#stat_widgets.completed_apps'><text id='gutfin.stat_widgets.completed_apps' x='83' y='711'>completed_apps</text><title>completed_apps
+* int
+Завершенных заявок</title></a>
+  <use id='nn' x='66' y='717' xlink:href='#nn'/><a xlink:href='#stat_widgets.approved_apps'><text id='gutfin.stat_widgets.approved_apps' x='83' y='727'>approved_apps</text><title>approved_apps
+* int
+Одобреных заявок</title></a>
+  <use id='nn' x='66' y='733' xlink:href='#nn'/><a xlink:href='#stat_widgets.money'><text id='gutfin.stat_widgets.money' x='83' y='743'>money</text><title>money
+* double
+Начислено денег</title></a>
+
+<!-- ============= Table 'user' ============= -->
+<rect class='table' x='1072' y='824' width='176' height='192' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1072.00 852.00 L 1072.00 832.00 Q 1072.00 824.00 1080.00 824.00 L 1240.00 824.00 Q 1248.00 824.00 1248.00 832.00 L 1248.00 852.00 L1072.00 852.00 ' style='fill:url(#tbg_c1d8ee);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1072' y='824' width='176' height='192' rx='8' ry='8' style='fill:none;stroke:#a5bbd0'/>
+<line class='delim' x1='1072.000000' y1='852.000000' x2='1248.000000' y2='852.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1088.000000' y1='852.000000' x2='1088.000000' y2='1016.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1236.000000' y1='852.000000' x2='1236.000000' y2='1016.000000' style='stroke:#a5bbd0'/>
+<a xlink:href='#user'><text x='1143' y='844'>user</text><title>Table gutfin.user
+Пользователи сайта</title></a>
+  <use id='nn' x='1074' y='861' xlink:href='#nn'/><a xlink:href='#user.id'><use id='pk' x='1074' y='860' xlink:href='#pk'/><title>Pk pk_user ( id ) </title></a>
+<a xlink:href='#user.id'><text id='gutfin.user.id' x='1091' y='871' onmouseover="hghl(['clients_persons_fk_clients_persons','clients_persons_fk_clients_persons','clients_persons_fk_clients_persons','clients_persons_fk_clients_persons','clients_persons_fk_clients_persons'])" onmouseout="uhghl(['clients_persons_fk_clients_persons','clients_persons_fk_clients_persons','clients_persons_fk_clients_persons','clients_persons_fk_clients_persons','clients_persons_fk_clients_persons'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#user.id'><use id='ref' x='1236' y='860' xlink:href='#ref'/><title>Referred by clients_persons ( user_id -&gt; id ) 
+Referred by clients_persons ( user_id -&gt; id ) 
+Referred by clients_persons ( user_id -&gt; id ) 
+Referred by clients_persons ( user_id -&gt; id ) 
+Referred by clients_persons ( user_id -&gt; id ) </title></a>
+  <use id='nn' x='1074' y='877' xlink:href='#nn'/><a xlink:href='#user.username'><use id='unq' x='1074' y='876' xlink:href='#unq'/><title>Unq username ( username ) </title></a>
+<a xlink:href='#user.username'><text id='gutfin.user.username' x='1091' y='887'>username</text><title>username
+* varchar(255)</title></a>
+  <use id='nn' x='1074' y='893' xlink:href='#nn'/><a xlink:href='#user.auth_key'><text id='gutfin.user.auth_key' x='1091' y='903'>auth_key</text><title>auth_key
+* varchar(32)</title></a>
+  <use id='nn' x='1074' y='909' xlink:href='#nn'/><a xlink:href='#user.password_hash'><text id='gutfin.user.password_hash' x='1091' y='919'>password_hash</text><title>password_hash
+* varchar(255)</title></a>
+  <a xlink:href='#user.password_reset_token'><use id='unq' x='1074' y='924' xlink:href='#unq'/><title>Unq password_reset_token ( password_reset_token ) </title></a>
+<a xlink:href='#user.password_reset_token'><text id='gutfin.user.password_reset_token' x='1091' y='935'>password_reset_token</text><title>password_reset_token
+varchar(255)</title></a>
+  <use id='nn' x='1074' y='941' xlink:href='#nn'/><a xlink:href='#user.email'><use id='unq' x='1074' y='940' xlink:href='#unq'/><title>Unq email ( email ) </title></a>
+<a xlink:href='#user.email'><text id='gutfin.user.email' x='1091' y='951'>email</text><title>email
+* varchar(255)</title></a>
+  <use id='nn' x='1074' y='957' xlink:href='#nn'/><a xlink:href='#user.status'><text id='gutfin.user.status' x='1091' y='967'>status</text><title>status
+* smallint default 10</title></a>
+  <use id='nn' x='1074' y='973' xlink:href='#nn'/><a xlink:href='#user.created_at'><text id='gutfin.user.created_at' x='1091' y='983'>created_at</text><title>created_at
+* int</title></a>
+  <use id='nn' x='1074' y='989' xlink:href='#nn'/><a xlink:href='#user.updated_at'><text id='gutfin.user.updated_at' x='1091' y='999'>updated_at</text><title>updated_at
+* int</title></a>
+
+<!-- ============= Table 'browser_user_agents' ============= -->
+<rect class='table' x='1120' y='424' width='176' height='240' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1120.00 452.00 L 1120.00 432.00 Q 1120.00 424.00 1128.00 424.00 L 1288.00 424.00 Q 1296.00 424.00 1296.00 432.00 L 1296.00 452.00 L1120.00 452.00 ' style='fill:url(#tbg_c1d8ee);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1120' y='424' width='176' height='240' rx='8' ry='8' style='fill:none;stroke:#a5bbd0'/>
+<line class='delim' x1='1120.000000' y1='452.000000' x2='1296.000000' y2='452.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1136.000000' y1='452.000000' x2='1136.000000' y2='664.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1284.000000' y1='452.000000' x2='1284.000000' y2='664.000000' style='stroke:#a5bbd0'/>
+<a xlink:href='#browser_user_agents'><text x='1143' y='444'>browser_user_agents</text><title>Table gutfin.browser_user_agents
+User Agents</title></a>
+  <use id='nn' x='1122' y='461' xlink:href='#nn'/><a xlink:href='#browser_user_agents.id'><use id='pk' x='1122' y='460' xlink:href='#pk'/><title>Pk pk_browser_user_agents ( id ) </title></a>
+<a xlink:href='#browser_user_agents.id'><text id='gutfin.browser_user_agents.id' x='1139' y='471' onmouseover="hghl(['widget_leads_fk_winget_leads'])" onmouseout="uhghl(['widget_leads_fk_winget_leads'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#browser_user_agents.id'><use id='ref' x='1284' y='460' xlink:href='#ref'/><title>Referred by widget_leads ( user_agent_id -&gt; id ) </title></a>
+  <use id='nn' x='1122' y='477' xlink:href='#nn'/><a xlink:href='#browser_user_agents.hash'><use id='unq' x='1122' y='476' xlink:href='#unq'/><title>Unq hash ( hash ) </title></a>
+<a xlink:href='#browser_user_agents.hash'><text id='gutfin.browser_user_agents.hash' x='1139' y='487'>hash</text><title>hash
+* varchar(32) default ''</title></a>
+  <use id='nn' x='1122' y='493' xlink:href='#nn'/><a xlink:href='#browser_user_agents.browser_name'><text id='gutfin.browser_user_agents.browser_name' x='1139' y='503'>browser_name</text><title>browser_name
+* varchar(50) default ''</title></a>
+  <use id='nn' x='1122' y='509' xlink:href='#nn'/><a xlink:href='#browser_user_agents.browser_version'><text id='gutfin.browser_user_agents.browser_version' x='1139' y='519'>browser_version</text><title>browser_version
+* int</title></a>
+  <use id='nn' x='1122' y='525' xlink:href='#nn'/><a xlink:href='#browser_user_agents.browser_version_minor'><text id='gutfin.browser_user_agents.browser_version_minor' x='1139' y='535'>browser_version_minor</text><title>browser_version_minor
+* int</title></a>
+  <use id='nn' x='1122' y='541' xlink:href='#nn'/><a xlink:href='#browser_user_agents.os_name'><text id='gutfin.browser_user_agents.os_name' x='1139' y='551'>os_name</text><title>os_name
+* varchar(50) default ''</title></a>
+  <use id='nn' x='1122' y='557' xlink:href='#nn'/><a xlink:href='#browser_user_agents.os_version'><text id='gutfin.browser_user_agents.os_version' x='1139' y='567'>os_version</text><title>os_version
+* int</title></a>
+  <use id='nn' x='1122' y='573' xlink:href='#nn'/><a xlink:href='#browser_user_agents.os_version_minor'><text id='gutfin.browser_user_agents.os_version_minor' x='1139' y='583'>os_version_minor</text><title>os_version_minor
+* int</title></a>
+  <use id='nn' x='1122' y='589' xlink:href='#nn'/><a xlink:href='#browser_user_agents.device_type'><text id='gutfin.browser_user_agents.device_type' x='1139' y='599'>device_type</text><title>device_type
+* varchar(40) default ''</title></a>
+  <use id='nn' x='1122' y='605' xlink:href='#nn'/><a xlink:href='#browser_user_agents.device_model'><text id='gutfin.browser_user_agents.device_model' x='1139' y='615'>device_model</text><title>device_model
+* varchar(40)</title></a>
+  <a xlink:href='#browser_user_agents.is_mobile'><text id='gutfin.browser_user_agents.is_mobile' x='1139' y='631'>is_mobile</text><title>is_mobile
+tinyint</title></a>
+  <a xlink:href='#browser_user_agents.is_bot'><text id='gutfin.browser_user_agents.is_bot' x='1139' y='647'>is_bot</text><title>is_bot
+int</title></a>
+
+<!-- ============= Table 'locales_groups' ============= -->
+<rect class='table' x='1024' y='184' width='112' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1024.00 212.00 L 1024.00 192.00 Q 1024.00 184.00 1032.00 184.00 L 1128.00 184.00 Q 1136.00 184.00 1136.00 192.00 L 1136.00 212.00 L1024.00 212.00 ' style='fill:url(#tbg_c1d8ee);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1024' y='184' width='112' height='80' rx='8' ry='8' style='fill:none;stroke:#a5bbd0'/>
+<line class='delim' x1='1024.000000' y1='212.000000' x2='1136.000000' y2='212.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1040.000000' y1='212.000000' x2='1040.000000' y2='264.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1124.000000' y1='212.000000' x2='1124.000000' y2='264.000000' style='stroke:#a5bbd0'/>
+<a xlink:href='#locales_groups'><text x='1033' y='204'>locales_groups</text><title>Table gutfin.locales_groups</title></a>
+  <use id='nn' x='1026' y='221' xlink:href='#nn'/><a xlink:href='#locales_groups.id'><use id='pk' x='1026' y='220' xlink:href='#pk'/><title>Pk pk_locales_groups ( id ) </title></a>
+<a xlink:href='#locales_groups.id'><text id='gutfin.locales_groups.id' x='1043' y='231' onmouseover="hghl(['locales_fk_locales_0'])" onmouseout="uhghl(['locales_fk_locales_0'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#locales_groups.id'><use id='ref' x='1124' y='220' xlink:href='#ref'/><title>Referred by locales ( group_id -&gt; id ) </title></a>
+  <a xlink:href='#locales_groups.name'><text id='gutfin.locales_groups.name' x='1043' y='247'>name</text><title>name
+varchar(100)
+Название группы</title></a>
+
+<!-- ============= Table 'stop_words' ============= -->
+<rect class='table' x='992' y='1112' width='80' height='80' rx='8' ry='8' style='stroke:none'/>
+<path d='M 992.00 1140.00 L 992.00 1120.00 Q 992.00 1112.00 1000.00 1112.00 L 1064.00 1112.00 Q 1072.00 1112.00 1072.00 1120.00 L 1072.00 1140.00 L992.00 1140.00 ' style='fill:url(#tbg_c1d8ee);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='992' y='1112' width='80' height='80' rx='8' ry='8' style='fill:none;stroke:#a5bbd0'/>
+<line class='delim' x1='992.000000' y1='1140.000000' x2='1072.000000' y2='1140.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1008.000000' y1='1140.000000' x2='1008.000000' y2='1192.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1060.000000' y1='1140.000000' x2='1060.000000' y2='1192.000000' style='stroke:#a5bbd0'/>
+<a xlink:href='#stop_words'><text x='995' y='1132'>stop_words</text><title>Table gutfin.stop_words
+Стоп-слова</title></a>
+  <use id='nn' x='994' y='1149' xlink:href='#nn'/><a xlink:href='#stop_words.id'><use id='pk' x='994' y='1148' xlink:href='#pk'/><title>Pk pk_stop_words ( id ) </title></a>
+<a xlink:href='#stop_words.id'><text id='gutfin.stop_words.id' x='1011' y='1159'>id</text><title>id
+* int</title></a>
+  <use id='nn' x='994' y='1165' xlink:href='#nn'/><a xlink:href='#stop_words.word'><use id='unq' x='994' y='1164' xlink:href='#unq'/><title>Unq idx_word ( word ) </title></a>
+<a xlink:href='#stop_words.word'><text id='gutfin.stop_words.word' x='1011' y='1175'>word</text><title>word
+* varchar(255)
+стоп-слово</title></a>
+
+<!-- ============= Table 'phone_operators' ============= -->
+<rect class='table' x='1104' y='1112' width='112' height='112' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1104.00 1140.00 L 1104.00 1120.00 Q 1104.00 1112.00 1112.00 1112.00 L 1208.00 1112.00 Q 1216.00 1112.00 1216.00 1120.00 L 1216.00 1140.00 L1104.00 1140.00 ' style='fill:url(#tbg_c1d8ee);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1104' y='1112' width='112' height='112' rx='8' ry='8' style='fill:none;stroke:#a5bbd0'/>
+<line class='delim' x1='1104.000000' y1='1140.000000' x2='1216.000000' y2='1140.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1120.000000' y1='1140.000000' x2='1120.000000' y2='1224.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1204.000000' y1='1140.000000' x2='1204.000000' y2='1224.000000' style='stroke:#a5bbd0'/>
+<a xlink:href='#phone_operators'><text x='1107' y='1132'>phone_operators</text><title>Table gutfin.phone_operators
+Операторы связи</title></a>
+  <use id='nn' x='1106' y='1149' xlink:href='#nn'/><a xlink:href='#phone_operators.id'><use id='pk' x='1106' y='1148' xlink:href='#pk'/><title>Pk pk_phone_operator ( id ) </title></a>
+<a xlink:href='#phone_operators.id'><text id='gutfin.phone_operators.id' x='1123' y='1159'>id</text><title>id
+* int</title></a>
+  <a xlink:href='#phone_operators.name'><text id='gutfin.phone_operators.name' x='1123' y='1175'>name</text><title>name
+varchar(100)
+Название</title></a>
+  <a xlink:href='#phone_operators.codes'><text id='gutfin.phone_operators.codes' x='1123' y='1191'>codes</text><title>codes
+varchar(255)
+Коды сети</title></a>
+  <use id='nn' x='1106' y='1197' xlink:href='#nn'/><a xlink:href='#phone_operators.icon'><text id='gutfin.phone_operators.icon' x='1123' y='1207'>icon</text><title>icon
+* varchar(255)</title></a>
+
+<!-- ============= Table 'locales_langs' ============= -->
+<rect class='table' x='1024' y='72' width='96' height='96' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1024.00 100.00 L 1024.00 80.00 Q 1024.00 72.00 1032.00 72.00 L 1112.00 72.00 Q 1120.00 72.00 1120.00 80.00 L 1120.00 100.00 L1024.00 100.00 ' style='fill:url(#tbg_c1d8ee);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1024' y='72' width='96' height='96' rx='8' ry='8' style='fill:none;stroke:#a5bbd0'/>
+<line class='delim' x1='1024.000000' y1='100.000000' x2='1120.000000' y2='100.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1040.000000' y1='100.000000' x2='1040.000000' y2='168.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1108.000000' y1='100.000000' x2='1108.000000' y2='168.000000' style='stroke:#a5bbd0'/>
+<a xlink:href='#locales_langs'><text x='1030' y='92'>locales_langs</text><title>Table gutfin.locales_langs
+Языки локалей</title></a>
+  <use id='nn' x='1026' y='109' xlink:href='#nn'/><a xlink:href='#locales_langs.id'><use id='pk' x='1026' y='108' xlink:href='#pk'/><title>Pk pk_locales_langs ( id ) </title></a>
+<a xlink:href='#locales_langs.id'><text id='gutfin.locales_langs.id' x='1043' y='119' onmouseover="hghl(['locales_fk_locales'])" onmouseout="uhghl(['locales_fk_locales'])">id</text><title>id
+* int</title></a>
+<a xlink:href='#locales_langs.id'><use id='ref' x='1108' y='108' xlink:href='#ref'/><title>Referred by locales ( lang_id -&gt; id ) </title></a>
+  <use id='nn' x='1026' y='125' xlink:href='#nn'/><a xlink:href='#locales_langs.code'><use id='unq' x='1026' y='124' xlink:href='#unq'/><title>Unq idx_code ( code ) </title></a>
+<a xlink:href='#locales_langs.code'><text id='gutfin.locales_langs.code' x='1043' y='135'>code</text><title>code
+* varchar(2)
+Код языка</title></a>
+  <use id='nn' x='1026' y='141' xlink:href='#nn'/><a xlink:href='#locales_langs.name'><text id='gutfin.locales_langs.name' x='1043' y='151'>name</text><title>name
+* varchar(100)
+Название языка</title></a>
+
+<!-- ============= Table 'locales' ============= -->
+<rect class='table' x='1184' y='72' width='112' height='144' rx='8' ry='8' style='stroke:none'/>
+<path d='M 1184.00 100.00 L 1184.00 80.00 Q 1184.00 72.00 1192.00 72.00 L 1288.00 72.00 Q 1296.00 72.00 1296.00 80.00 L 1296.00 100.00 L1184.00 100.00 ' style='fill:url(#tbg_c1d8ee);stroke:1;stroke-opacity:0.1;' />
+<rect class='table' x='1184' y='72' width='112' height='144' rx='8' ry='8' style='fill:none;stroke:#a5bbd0'/>
+<line class='delim' x1='1184.000000' y1='100.000000' x2='1296.000000' y2='100.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1200.000000' y1='100.000000' x2='1200.000000' y2='216.000000' style='stroke:#a5bbd0'/>
+<line class='delim' x1='1284.000000' y1='100.000000' x2='1284.000000' y2='216.000000' style='stroke:#a5bbd0'/>
+<a xlink:href='#locales'><text x='1216' y='92'>locales</text><title>Table gutfin.locales
+Локали</title></a>
+  <use id='nn' x='1186' y='109' xlink:href='#nn'/><a xlink:href='#locales.id'><use id='pk' x='1186' y='108' xlink:href='#pk'/><title>Pk pk_locales ( id ) </title></a>
+<a xlink:href='#locales.id'><text id='gutfin.locales.id' x='1203' y='119'>id</text><title>id
+* int</title></a>
+  <use id='nn' x='1186' y='125' xlink:href='#nn'/><a xlink:href='#locales.group_id'><use id='unq' x='1186' y='124' xlink:href='#unq'/><title>idx_locales_0 ( group_id ) Unq idx_group_id ( group_id, lang_id, name ) </title></a>
+<a xlink:href='#locales.group_id'><text id='gutfin.locales.group_id' x='1203' y='135' onmouseover="hghl(['locales_fk_locales_0'])" onmouseout="uhghl(['locales_fk_locales_0'])">group_id</text><title>group_id
+* int
+Группа</title></a>
+<a xlink:href='#locales.group_id'><use id='fk' x='1284' y='124' xlink:href='#fk'/><title>References locales_groups ( group_id -&gt; id ) </title></a>
+  <use id='nn' x='1186' y='141' xlink:href='#nn'/><a xlink:href='#locales.lang_id'><use id='unq' x='1186' y='140' xlink:href='#unq'/><title>idx_locales ( lang_id ) Unq idx_group_id ( group_id, lang_id, name ) </title></a>
+<a xlink:href='#locales.lang_id'><text id='gutfin.locales.lang_id' x='1203' y='151' onmouseover="hghl(['locales_fk_locales'])" onmouseout="uhghl(['locales_fk_locales'])">lang_id</text><title>lang_id
+* int</title></a>
+<a xlink:href='#locales.lang_id'><use id='fk' x='1284' y='140' xlink:href='#fk'/><title>References locales_langs ( lang_id -&gt; id ) </title></a>
+  <use id='nn' x='1186' y='157' xlink:href='#nn'/><a xlink:href='#locales.name'><use id='unq' x='1186' y='156' xlink:href='#unq'/><title>Unq idx_group_id ( group_id, lang_id, name ) </title></a>
+<a xlink:href='#locales.name'><text id='gutfin.locales.name' x='1203' y='167'>name</text><title>name
+* varchar(32)
+Название локали</title></a>
+  <use id='nn' x='1186' y='173' xlink:href='#nn'/><a xlink:href='#locales.value'><text id='gutfin.locales.value' x='1203' y='183'>value</text><title>value
+* text
+Значение локали</title></a>
+  <a xlink:href='#locales.updated_at'><text id='gutfin.locales.updated_at' x='1203' y='199'>updated_at</text><title>updated_at
+timestamp default CURRENT_TIMESTAMP
+Последнее изменение поля</title></a>
+
+<!-- ============= Callout ============= -->
+<rect class='callout' x='960' y='752' width='192' height='67' rx='16' ry='16'  />
+<text x='984' y='752' class='callout'>
+    <tspan x='964' dx='8' dy='16.80'>Связь образуется в случае&#44; </tspan>
+    <tspan x='964' dx='8' dy='16.80'>если клиент имеет логин </tspan>
+    <tspan x='964' dx='8' dy='16.80'>в нашей системе</tspan>
+</text>
+<use x='976' y='819' xlink:href='#calloutArrowDown'/>
+
+</g></svg></div>
+
+
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_partners'); return(false);">Table partners</a></h2></div>
+<div id='partners'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='partners'>Columns</a></th></tr>
+<tr><td colspan='3'>Партнёры &#40;они же вебмастеры&#41; </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='partners.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='partners.access_token'>access&#95;token</a></td>
+		<td> varchar&#40; 64 &#41;   DEFAULT '' </td>
+		<td> Ключ для доступа к API </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;partners</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>access&#95;token</td>
+		<td> ON access&#95;token</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_forms'); return(false);">Table forms</a></h2></div>
+<div id='forms'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='forms'>Columns</a></th></tr>
+<tr><td colspan='3'>Типы форм </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='forms.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='forms.name'>name</a></td>
+		<td> varchar&#40; 255 &#41;   DEFAULT '' </td>
+		<td> Название анкеты </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;forms&#95;types</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_traf_domains'); return(false);">Table traf_domains</a></h2></div>
+<div id='traf_domains'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='traf_domains'>Columns</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='traf_domains.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='traf_domains.domain'>domain</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td> Домен&#44; без http&#44; www&#46;&#44; пути&#44; итд </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;traf&#95;domains</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_widget_lead_events'); return(false);">Table widget_lead_events</a></h2></div>
+<div id='widget_lead_events'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='widget_lead_events'>Columns</a></th></tr>
+<tr><td colspan='3'>События у лида </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_lead_events.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_lead_events.created_at'>created&#95;at</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Дата события </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_lead_events.lead_id'>lead&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> ID лида </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_lead_events.event_type_id'>event&#95;type&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> ID типа события </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;lead&#95;events</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;lead&#95;events</td>
+		<td> ON lead&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;winget&#95;lead&#95;events</td>
+		<td> ON event&#95;type&#95;id</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_lead_events</td>
+		<td > ( lead&#95;id ) ref <a href='#widget&#95;leads'>widget&#95;leads</a> (id) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_winget_lead_events</td>
+		<td > ( event&#95;type&#95;id ) ref <a href='#leads&#95;events&#95;types'>leads&#95;events&#95;types</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_partners_sites'); return(false);">Table partners_sites</a></h2></div>
+<div id='partners_sites'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='partners_sites'>Columns</a></th></tr>
+<tr><td colspan='3'>Сайты партнёра </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='partners_sites.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='partners_sites.partner_id'>partner&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='partners_sites.domain_id'>domain&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Домен </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='partners_sites.is_reviewed'>is&#95;reviewed</a></td>
+		<td> tinyint UNSIGNED   </td>
+		<td> Просмотрен ли сайт модераторами </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='partners_sites.is_banned'>is&#95;banned</a></td>
+		<td> tinyint UNSIGNED   </td>
+		<td> Признак блокировки &#40;сайта&#47;домена&#41; </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;partners&#95;sites</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;partners&#95;sites</td>
+		<td> ON partner&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;partners&#95;sites&#95;0</td>
+		<td> ON domain&#95;id</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_partners_sites</td>
+		<td > ( partner&#95;id ) ref <a href='#partners'>partners</a> (id) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_partners_sites_0</td>
+		<td > ( domain&#95;id ) ref <a href='#traf&#95;domains'>traf&#95;domains</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_forms_fields'); return(false);">Table forms_fields</a></h2></div>
+<div id='forms_fields'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='forms_fields'>Columns</a></th></tr>
+<tr><td colspan='3'>Вопросы в анкете </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='forms_fields.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='forms_fields.form_id'>form&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Форма </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='forms_fields.label'>label</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td> Метка </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='forms_fields.placeholder'>placeholder</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td> Значение в поле &#40;placeholder&#41; </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='forms_fields.field_type'>field&#95;type</a></td>
+		<td> enum   DEFAULT 'text' </td>
+		<td> Тип поля </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='forms_fields.updated_at'>updated&#95;at</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Последнее изменение </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='forms_fields.created_at'>created&#95;at</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Дата создания </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;forms&#95;questions</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;forms&#95;questions</td>
+		<td> ON form&#95;id</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_forms_questions</td>
+		<td > ( form&#95;id ) ref <a href='#forms'>forms</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_stat_sites'); return(false);">Table stat_sites</a></h2></div>
+<div id='stat_sites'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='stat_sites'>Columns</a></th></tr>
+<tr><td colspan='3'>Статистика по сайтам </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_sites.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_sites.site_id'>site&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Сайт партнёра </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_sites.date'>date</a></td>
+		<td> date   </td>
+		<td> Дата </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_sites.hits'>hits</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Хиты &#40;загрузки виджета&#41; </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_sites.hosts'>hosts</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Хосты &#40;уникальные посетители&#41; </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_sites.total_apps'>total&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Всего заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_sites.completed_apps'>completed&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Завершенных заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_sites.approved_apps'>approved&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Одобреных заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_sites.money'>money</a></td>
+		<td> double   </td>
+		<td> Начислено денег </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;stat&#95;widgets&#95;0</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;stat&#95;widgets&#95;0</td>
+		<td> ON site&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>idx&#95;site&#95;id&#95;date</td>
+		<td> ON site&#95;id&#44; date</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_stat_sites</td>
+		<td > ( site&#95;id ) ref <a href='#partners&#95;sites'>partners&#95;sites</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_stat_partners'); return(false);">Table stat_partners</a></h2></div>
+<div id='stat_partners'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='stat_partners'>Columns</a></th></tr>
+<tr><td colspan='3'>Статистика по сайтам </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_partners.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_partners.partner_id'>partner&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Сайт партнёра </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_partners.date'>date</a></td>
+		<td> date   </td>
+		<td> Дата </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_partners.hits'>hits</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Хиты &#40;загрузки виджета&#41; </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_partners.hosts'>hosts</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Хосты &#40;уникальные посетители&#41; </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_partners.total_apps'>total&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Всего заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_partners.completed_apps'>completed&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Завершенных заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_partners.approved_apps'>approved&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Одобреных заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_partners.money'>money</a></td>
+		<td> double   </td>
+		<td> Начислено денег </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;stat&#95;widgets&#95;1</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;stat&#95;widgets&#95;1</td>
+		<td> ON partner&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>idx&#95;site&#95;id&#95;date&#95;0</td>
+		<td> ON partner&#95;id&#44; date</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_stat_partners</td>
+		<td > ( partner&#95;id ) ref <a href='#partners'>partners</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_clients_persons'); return(false);">Table clients_persons</a></h2></div>
+<div id='clients_persons'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='clients_persons'>Columns</a></th></tr>
+<tr><td colspan='3'>Клиенты </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='clients_persons.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='clients_persons.firstname'>firstname</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td> Имя </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='clients_persons.midlename'>midlename</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td> Отчество </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='clients_persons.lastname'>lastname</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td> Фамилия </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='clients_persons.birthday'>birthday</a></td>
+		<td> date   </td>
+		<td> День рождения </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='clients_persons.passport_series'>passport&#95;series</a></td>
+		<td> smallint UNSIGNED   DEFAULT 0 </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='clients_persons.passport_number'>passport&#95;number</a></td>
+		<td> mediumint UNSIGNED   DEFAULT 0 </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='clients_persons.passport_date'>passport&#95;date</a></td>
+		<td> date   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='clients_persons.gender'>gender</a></td>
+		<td> set   DEFAULT 'M' </td>
+		<td> Пол </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='clients_persons.email'>email</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td> E&#45;Mail </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='clients_persons.phone'>phone</a></td>
+		<td> varchar&#40; 20 &#41;   </td>
+		<td> Телефон </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='clients_persons.user_id'>user&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Пользователь&#44; если существует </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;clients&#95;persons</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;clients&#95;persons</td>
+		<td> ON user&#95;id</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_clients_persons</td>
+		<td > ( user&#95;id ) ref <a href='#user'>user</a> (id) </td>
+		<td> Связь образуется в случае&#44; 
+если клиент имеет логин 
+в нашей системе </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_leads_events_types'); return(false);">Table leads_events_types</a></h2></div>
+<div id='leads_events_types'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='leads_events_types'>Columns</a></th></tr>
+<tr><td colspan='3'>Типы событий у лида </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='leads_events_types.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='leads_events_types.name'>name</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td> Название события </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;leads&#95;events&#95;types</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_widget_lead_events_data'); return(false);">Table widget_lead_events_data</a></h2></div>
+<div id='widget_lead_events_data'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='widget_lead_events_data'>Columns</a></th></tr>
+<tr><td colspan='3'>Данные о событии&#44; если они необходимы </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_lead_events_data.widget_lead_event_id'>widget&#95;lead&#95;event&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='widget_lead_events_data.data'>data</a></td>
+		<td> text   </td>
+		<td> Данные события &#40;например в JSON&#45;формате&#41; </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;widget&#95;lead&#95;events&#95;data</td>
+		<td> ON widget&#95;lead&#95;event&#95;id</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_widget_lead_events_data</td>
+		<td > ( widget&#95;lead&#95;event&#95;id ) ref <a href='#widget&#95;lead&#95;events'>widget&#95;lead&#95;events</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_stat_total'); return(false);">Table stat_total</a></h2></div>
+<div id='stat_total'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='stat_total'>Columns</a></th></tr>
+<tr><td colspan='3'>Общая статистика по системе </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_total.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_total.date'>date</a></td>
+		<td> date   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='stat_total.widget_hits'>widget&#95;hits</a></td>
+		<td> int   </td>
+		<td> Общее количество загрузек виджета </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_total.widget_hosts'>widget&#95;hosts</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Уникальных хостов виджета </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_total.widget_apps_total'>widget&#95;apps&#95;total</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Всего заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_total.widget_apps_complete'>widget&#95;apps&#95;complete</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Полностью оформленных заявок </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;stat&#95;total</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>idx&#95;date</td>
+		<td> ON date</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_stat_forms'); return(false);">Table stat_forms</a></h2></div>
+<div id='stat_forms'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='stat_forms'>Columns</a></th></tr>
+<tr><td colspan='3'>Статистика по формам </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_forms.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_forms.form_id'>form&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Форма </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_forms.date'>date</a></td>
+		<td> date   </td>
+		<td> Дата </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_forms.hits'>hits</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Хиты &#40;загрузки виджета&#41; </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_forms.hosts'>hosts</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Хосты &#40;уникальные посетители&#41; </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_forms.total_apps'>total&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Всего заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_forms.completed_apps'>completed&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Завершенных заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_forms.approved_apps'>approved&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Одобреных заявок </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;stat&#95;widgets&#95;2</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;stat&#95;widgets&#95;2</td>
+		<td> ON form&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>idx&#95;stat&#95;widgets&#95;date&#95;0</td>
+		<td> ON form&#95;id&#44; date</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_stat_forms</td>
+		<td > ( form&#95;id ) ref <a href='#forms'>forms</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_widget_leads'); return(false);">Table widget_leads</a></h2></div>
+<div id='widget_leads'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='widget_leads'>Columns</a></th></tr>
+<tr><td colspan='3'>Лиды к виджетам </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_leads.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_leads.created_at'>created&#95;at</a></td>
+		<td> int UNSIGNED   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_leads.widget_id'>widget&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='widget_leads.ip'>ip</a></td>
+		<td> int UNSIGNED   </td>
+		<td> IP&#45;адрес клиента </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='widget_leads.user_agent_id'>user&#95;agent&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> User Agent браузера клиента </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_leads.partner_site_id'>partner&#95;site&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Сайт&#44; на котором произошел лид </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='widget_leads.traf_referer_id'>traf&#95;referer&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Источник траффика </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_leads.events_count'>events&#95;count</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Количество событий &#40;кеш&#41; </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_leads.hits'>hits</a></td>
+		<td> int UNSIGNED   DEFAULT 1 </td>
+		<td> Количество хитов &#40;загрузок виджета&#41; по данному лиду </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='widget_leads.status'>status</a></td>
+		<td> enum   DEFAULT 'new' </td>
+		<td> Статус лида </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_leads.client_last_online'>client&#95;last&#95;online</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Когда клиент последний раз был в онлайне &#40;для отслеживания заброшеных лидов&#41; </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_leads.session_time'>session&#95;time</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Время онлайн </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;winget&#95;leads</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>widget&#95;id</td>
+		<td> ON widget&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;winget&#95;leads</td>
+		<td> ON user&#95;agent&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;winget&#95;leads&#95;0</td>
+		<td> ON partner&#95;site&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;winget&#95;leads&#95;1</td>
+		<td> ON traf&#95;referer&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;widget&#95;leads&#95;last&#95;online</td>
+		<td> ON status&#44; client&#95;last&#95;online</td>
+		<td> Для нахождения всех неактивных </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>winget_leads_ibfk_1</td>
+		<td > ( widget&#95;id ) ref <a href='#widgets'>widgets</a> (id) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_winget_leads</td>
+		<td > ( user&#95;agent&#95;id ) ref <a href='#browser&#95;user&#95;agents'>browser&#95;user&#95;agents</a> (id) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_winget_leads_0</td>
+		<td > ( partner&#95;site&#95;id ) ref <a href='#partners&#95;sites'>partners&#95;sites</a> (id) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_winget_leads_1</td>
+		<td > ( traf&#95;referer&#95;id ) ref <a href='#traf&#95;referers'>traf&#95;referers</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_widget_apps'); return(false);">Table widget_apps</a></h2></div>
+<div id='widget_apps'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='widget_apps'>Columns</a></th></tr>
+<tr><td colspan='3'>Заявки из виджета </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_apps.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_apps.created_at'>created&#95;at</a></td>
+		<td> timestamp   DEFAULT CURRENT_TIMESTAMP </td>
+		<td> Дата создания </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_apps.updated_at'>updated&#95;at</a></td>
+		<td> timestamp   DEFAULT '0000-00-00 00:00:00' </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_apps.widget_lead_id'>widget&#95;lead&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Лид </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_apps.form_id'>form&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Анкета </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_apps.widget_id'>widget&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Виджет </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_apps.person_id'>person&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Клиент </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='widget_apps.is_complete'>is&#95;complete</a></td>
+		<td> tinyint   </td>
+		<td> Признак&#44; что форма заполнена окончательно </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='widget_apps.complete_time'>complete&#95;time</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Время&#44; потраченное на заполнение анкеты </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;widget&#95;apps</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;widget&#95;apps</td>
+		<td> ON widget&#95;lead&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;widget&#95;apps&#95;0</td>
+		<td> ON form&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;widget&#95;apps&#95;1</td>
+		<td> ON widget&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;widget&#95;apps&#95;2</td>
+		<td> ON person&#95;id</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_widget_apps</td>
+		<td > ( widget&#95;lead&#95;id ) ref <a href='#widget&#95;leads'>widget&#95;leads</a> (id) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_widget_apps_0</td>
+		<td > ( form&#95;id ) ref <a href='#forms'>forms</a> (id) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_widget_apps_1</td>
+		<td > ( widget&#95;id ) ref <a href='#widgets'>widgets</a> (id) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_widget_apps_2</td>
+		<td > ( person&#95;id ) ref <a href='#clients&#95;persons'>clients&#95;persons</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_widgets'); return(false);">Table widgets</a></h2></div>
+<div id='widgets'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='widgets'>Columns</a></th></tr>
+<tr><td colspan='3'>Виджеты &#40;у партнёров&#41; </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='widgets.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widgets.created_at'>created&#95;at</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Дата создания </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widgets.updated_at'>updated&#95;at</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Последние изменение </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widgets.partner_id'>partner&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Партнёр </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widgets.form_id'>form&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widgets.name'>name</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td> Название виджета </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;widgets</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>partner&#95;id</td>
+		<td> ON partner&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;widgets</td>
+		<td> ON form&#95;id</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>widgets_ibfk_1</td>
+		<td > ( partner&#95;id ) ref <a href='#partners'>partners</a> (id) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_widgets</td>
+		<td > ( form&#95;id ) ref <a href='#forms'>forms</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_widget_settings'); return(false);">Table widget_settings</a></h2></div>
+<div id='widget_settings'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='widget_settings'>Columns</a></th></tr>
+<tr><td colspan='3'>Настройки виджета </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_settings.widget_id'>widget&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='widget_settings.data'>data</a></td>
+		<td> text   </td>
+		<td> Временное поле пока не соберем список настроек </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;widget&#95;settings</td>
+		<td> ON widget&#95;id</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_widget_settings</td>
+		<td > ( widget&#95;id ) ref <a href='#widgets'>widgets</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_traf_referers'); return(false);">Table traf_referers</a></h2></div>
+<div id='traf_referers'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='traf_referers'>Columns</a></th></tr>
+<tr><td colspan='3'>Источники траффика </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='traf_referers.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='traf_referers.domain_id'>domain&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Домен </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='traf_referers.hash'>hash</a></td>
+		<td> varchar&#40; 32 &#41;   </td>
+		<td> MD5&#45;хеш URL&#44; для уникальности </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='traf_referers.uri'>uri</a></td>
+		<td> text   </td>
+		<td> URI </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;referers</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;traf&#95;referers</td>
+		<td> ON domain&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>idx&#95;hash</td>
+		<td> ON hash</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_traf_referers</td>
+		<td > ( domain&#95;id ) ref <a href='#traf&#95;domains'>traf&#95;domains</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_widget_apps_fields_data'); return(false);">Table widget_apps_fields_data</a></h2></div>
+<div id='widget_apps_fields_data'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='widget_apps_fields_data'>Columns</a></th></tr>
+<tr><td colspan='3'>Данные кастомных полей в заявке </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_apps_fields_data.widget_app_id'>widget&#95;app&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Заявка </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='widget_apps_fields_data.form_field_id'>form&#95;field&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Поле анкеты </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='widget_apps_fields_data.data'>data</a></td>
+		<td> text   </td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;widget&#95;apps&#95;fields&#95;data</td>
+		<td> ON widget&#95;app&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;widget&#95;apps&#95;fields&#95;data&#95;0</td>
+		<td> ON form&#95;field&#95;id</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_widget_apps_fields_data</td>
+		<td > ( widget&#95;app&#95;id ) ref <a href='#widget&#95;apps'>widget&#95;apps</a> (id) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_widget_apps_fields_data_0</td>
+		<td > ( form&#95;field&#95;id ) ref <a href='#forms&#95;fields'>forms&#95;fields</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_stat_widgets'); return(false);">Table stat_widgets</a></h2></div>
+<div id='stat_widgets'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='stat_widgets'>Columns</a></th></tr>
+<tr><td colspan='3'>Статистика по виджетам </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_widgets.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_widgets.widget_id'>widget&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Виджет </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_widgets.date'>date</a></td>
+		<td> date   </td>
+		<td> Дата </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_widgets.hits'>hits</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Хиты &#40;загрузки виджета&#41; </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_widgets.hosts'>hosts</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Хосты &#40;уникальные посетители&#41; </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_widgets.total_apps'>total&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Всего заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_widgets.completed_apps'>completed&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Завершенных заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_widgets.approved_apps'>approved&#95;apps</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Одобреных заявок </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stat_widgets.money'>money</a></td>
+		<td> double   </td>
+		<td> Начислено денег </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;stat&#95;widgets</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;stat&#95;widgets</td>
+		<td> ON widget&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>idx&#95;stat&#95;widgets&#95;date</td>
+		<td> ON widget&#95;id&#44; date</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_stat_widgets</td>
+		<td > ( widget&#95;id ) ref <a href='#widgets'>widgets</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_user'); return(false);">Table user</a></h2></div>
+<div id='user'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='user'>Columns</a></th></tr>
+<tr><td colspan='3'>Пользователи сайта </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='user.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='user.username'>username</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='user.auth_key'>auth&#95;key</a></td>
+		<td> varchar&#40; 32 &#41;   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='user.password_hash'>password&#95;hash</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='user.password_reset_token'>password&#95;reset&#95;token</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='user.email'>email</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='user.status'>status</a></td>
+		<td> smallint   DEFAULT 10 </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='user.created_at'>created&#95;at</a></td>
+		<td> int   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='user.updated_at'>updated&#95;at</a></td>
+		<td> int   </td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;user</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>email</td>
+		<td> ON email</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>password&#95;reset&#95;token</td>
+		<td> ON password&#95;reset&#95;token</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>username</td>
+		<td> ON username</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_browser_user_agents'); return(false);">Table browser_user_agents</a></h2></div>
+<div id='browser_user_agents'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='browser_user_agents'>Columns</a></th></tr>
+<tr><td colspan='3'>User Agents </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='browser_user_agents.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='browser_user_agents.hash'>hash</a></td>
+		<td> varchar&#40; 32 &#41;   DEFAULT '' </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='browser_user_agents.browser_name'>browser&#95;name</a></td>
+		<td> varchar&#40; 50 &#41;   DEFAULT '' </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='browser_user_agents.browser_version'>browser&#95;version</a></td>
+		<td> int   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='browser_user_agents.browser_version_minor'>browser&#95;version&#95;minor</a></td>
+		<td> int   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='browser_user_agents.os_name'>os&#95;name</a></td>
+		<td> varchar&#40; 50 &#41;   DEFAULT '' </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='browser_user_agents.os_version'>os&#95;version</a></td>
+		<td> int   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='browser_user_agents.os_version_minor'>os&#95;version&#95;minor</a></td>
+		<td> int   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='browser_user_agents.device_type'>device&#95;type</a></td>
+		<td> varchar&#40; 40 &#41;   DEFAULT '' </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='browser_user_agents.device_model'>device&#95;model</a></td>
+		<td> varchar&#40; 40 &#41;   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='browser_user_agents.is_mobile'>is&#95;mobile</a></td>
+		<td> tinyint   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='browser_user_agents.is_bot'>is&#95;bot</a></td>
+		<td> int   </td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;browser&#95;user&#95;agents</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>hash</td>
+		<td> ON hash</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_locales_groups'); return(false);">Table locales_groups</a></h2></div>
+<div id='locales_groups'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='locales_groups'>Columns</a></th></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='locales_groups.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='locales_groups.name'>name</a></td>
+		<td> varchar&#40; 100 &#41;   </td>
+		<td> Название группы </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;locales&#95;groups</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_stop_words'); return(false);">Table stop_words</a></h2></div>
+<div id='stop_words'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='stop_words'>Columns</a></th></tr>
+<tr><td colspan='3'>Стоп&#45;слова </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='stop_words.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='stop_words.word'>word</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td> стоп&#45;слово </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;stop&#95;words</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>idx&#95;word</td>
+		<td> ON word</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_phone_operators'); return(false);">Table phone_operators</a></h2></div>
+<div id='phone_operators'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='phone_operators'>Columns</a></th></tr>
+<tr><td colspan='3'>Операторы связи </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='phone_operators.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='phone_operators.name'>name</a></td>
+		<td> varchar&#40; 100 &#41;   </td>
+		<td> Название </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='phone_operators.codes'>codes</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td> Коды сети </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='phone_operators.icon'>icon</a></td>
+		<td> varchar&#40; 255 &#41;   </td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;phone&#95;operator</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_locales_langs'); return(false);">Table locales_langs</a></h2></div>
+<div id='locales_langs'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='locales_langs'>Columns</a></th></tr>
+<tr><td colspan='3'>Языки локалей </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='locales_langs.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='locales_langs.code'>code</a></td>
+		<td> varchar&#40; 2 &#41;   </td>
+		<td> Код языка </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='locales_langs.name'>name</a></td>
+		<td> varchar&#40; 100 &#41;   </td>
+		<td> Название языка </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;locales&#95;langs</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>idx&#95;code</td>
+		<td> ON code</td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<br/><br/>
+<div class='section-header'><h2><a onclick="showhide('table_locales'); return(false);">Table locales</a></h2></div>
+<div id='locales'>
+<table class='bordered'>
+<thead>
+<tr><th colspan='4'><a name='locales'>Columns</a></th></tr>
+<tr><td colspan='3'>Локали </td></tr>
+</thead>
+<tbody>
+	<tr>
+		<td>*</td>
+		<td><a name='locales.id'>id</a></td>
+		<td> int UNSIGNED  AUTOINCREMENT  </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='locales.group_id'>group&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td> Группа </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='locales.lang_id'>lang&#95;id</a></td>
+		<td> int UNSIGNED   </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='locales.name'>name</a></td>
+		<td> varchar&#40; 32 &#41;   </td>
+		<td> Название локали </td>
+	</tr>
+	<tr>
+		<td>*</td>
+		<td><a name='locales.value'>value</a></td>
+		<td> text   </td>
+		<td> Значение локали </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a name='locales.updated_at'>updated&#95;at</a></td>
+		<td> timestamp   DEFAULT CURRENT_TIMESTAMP </td>
+		<td> Последнее изменение поля </td>
+	</tr>
+<tr><th colspan='4'>Indexes</th></tr>
+	<tr>		<td>Pk</td><td>pk&#95;locales</td>
+		<td> ON id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;locales</td>
+		<td> ON lang&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>&nbsp;</td><td>idx&#95;locales&#95;0</td>
+		<td> ON group&#95;id</td>
+		<td>  </td>
+	</tr>
+	<tr>		<td>U</td><td>idx&#95;group&#95;id</td>
+		<td> ON group&#95;id&#44; lang&#95;id&#44; name</td>
+		<td>  </td>
+	</tr>
+<tr><th colspan='4'>Foreign Keys</th></tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_locales</td>
+		<td > ( lang&#95;id ) ref <a href='#locales&#95;langs'>locales&#95;langs</a> (id) </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td>fk_locales_0</td>
+		<td > ( group&#95;id ) ref <a href='#locales&#95;groups'>locales&#95;groups</a> (id) </td>
+		<td>  </td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<p align='right'><a href='http://www.dbschema.com' style='color:#aaa'>Powered by DbSchema</a></p></body></html>

@@ -1,0 +1,1322 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Скорим API",
+    "description": "Скорим API",
+    "version": "0.1.1"
+  },
+  "host": "test_test_admin.dev.flustex.com",
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api_v1/partners/open-connection": {
+      "get": {
+        "summary": "Устанавливает соединение с пиложением",
+        "description": "Возвращает массив с данными по скрипту в формате объекта или исключения. В случае бездействия соеденение закрывается спустя 20 минут.",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Уникальный токен Партнёра(выдаётся администрацией)",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Partners"
+        ],
+        "responses": {
+          "200": {
+            "description": "Json объект",
+            "schema": {
+              "$ref": "#/definitions/PartnersOpenConnection"
+            }
+          },
+          "error : 3": {
+            "description": "Партнёр с таким токеном не найден"
+          },
+          "error : 5": {
+            "description": "Подключение уже установлено"
+          },
+          "error : 7": {
+            "description": "Токен не передан"
+          }
+        }
+      }
+    },
+    "/api_v1/partners/close-connection": {
+      "get": {
+        "summary": "Разрывает соеденение с приложением",
+        "description": "Возвращает массив с данными по скрипту в формате объекта или исключение",
+        "tags": [
+          "Partners"
+        ],
+        "responses": {
+          "200": {
+            "description": "Json объект",
+            "schema": {
+              "$ref": "#/definitions/PartnersCloseConnection"
+            }
+          },
+          "error : 6": {
+            "description": "Подключение и не было установелнно"
+          }
+        }
+      }
+    },
+    "/api_v1/partners/get-user-data": {
+      "get": {
+        "summary": "Запрос на получение данных об одном пользователе",
+        "description": "Возвращает массив с данными по скрипту в формате объекта или исключения",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "ID пользователя",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Partners"
+        ],
+        "responses": {
+          "200": {
+            "description": "Json объект c полями заданными конкретному партнёру администратором либо объект оповещающий о том что пользователь с таким ID не найден в базе данных",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "error : 0": {
+            "description": "Партнёр не установил соеденение"
+          },
+          "error : 1,2": {
+            "description": "У партнёра не достаточно прав"
+          },
+          "error : 4": {
+            "description": "Запрашиваемый пользователь не найден"
+          },
+          "error : 9": {
+            "description": "ID запрашивоемого пользователя не указан"
+          }
+        }
+      }
+    },
+    "/api_v1/partners/users-by-period": {
+      "get": {
+        "summary": "Запрос на получение данных о пользователях в промежутке их даты создания",
+        "description": "Возвращает массив с данными по скрипту в формате объекта или исключения",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "description": "C даты",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "по дату",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Partners"
+        ],
+        "responses": {
+          "200": {
+            "description": "Json объект c полями заданными конкретному партнёру администратором либо объект оповещающий о том что пользователь с таким ID не найден в базе данных. Период должен быть в формате \"?from=1111111111&to=1111111111\" где \"from\" и \"to\" timestamp",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "error : 0": {
+            "description": "Партнёр не установил соеденение"
+          },
+          "error : 1,2": {
+            "description": "У партнёра не достаточно прав"
+          },
+          "error : 4": {
+            "description": "Запрашиваемыйе пользователи в данном периоде не найдены"
+          },
+          "error : 8": {
+            "description": "Период не указан (либо указан не правильно)"
+          }
+        }
+      }
+    },
+    "/api_v1/users/user-login": {
+      "get": {
+        "summary": "Авторизация пользователя",
+        "description": "Валидирует поля и проверяет возможна ли авторизация для пользователя, возвращает Json объект со статусом и кодом ошибки",
+        "parameters": [
+          {
+            "name": "lastName",
+            "in": "query",
+            "description": "Фамилия пользователя",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "passport",
+            "in": "query",
+            "description": "Последние 3 цифры пасспорта",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "Пароль пользователя",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Json объект",
+            "schema": {
+              "$ref": "#/definitions/UserLogin"
+            }
+          },
+          "error : 0": {
+            "description": "Пользователь не найден"
+          },
+          "error : 1": {
+            "description": "В фамилии присутствует латиница"
+          },
+          "error : 2": {
+            "description": "Не верный пароль"
+          },
+          "error : 3": {
+            "description": "Пользователь заблокирован"
+          },
+          "error : 4": {
+            "description": "Пользователь удалён"
+          },
+          "error : 5": {
+            "description": "Пользователь в архиве удалённых"
+          }
+        }
+      }
+    },
+    "/api_v1/users/user-profile": {
+      "get": {
+        "summary": "Данные пользователя",
+        "description": "Получение данных о пользователе, возвращает Json объект со статусом и кодом ошибки",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "id пользователя",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Json объект",
+            "schema": {
+              "$ref": "#/definitions/UserProfile"
+            }
+          },
+          "error : 4": {
+            "description": "Пользователь не найден"
+          },
+          "error : 9": {
+            "description": "Id пользователя не переданно"
+          }
+        }
+      }
+    },
+    "/api_v1/users/user-notifications": {
+      "get": {
+        "summary": "Уведомления пользователя",
+        "description": "Получение массива объектов уведомлений для конкретного пользователя",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "id пользователя",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Json массив объектов",
+            "schema": {
+              "$ref": "#/definitions/UserNotifications"
+            }
+          },
+          "error : 4": {
+            "description": "Пользователь не найден"
+          },
+          "error : 9": {
+            "description": "Id пользователя не переданно"
+          },
+          "null": {
+            "description": "Данных не найдено"
+          }
+        }
+      }
+    },
+    "/api_v1/users/user-bonuses": {
+      "get": {
+        "summary": "Бонусы и инвайты пользователя",
+        "description": "Получение данных о бонусах и инвайтов пользователя",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "id пользователя",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Json массив объектов",
+            "schema": {
+              "$ref": "#/definitions/UserBonuses"
+            }
+          },
+          "error : 4": {
+            "description": "Пользователь не найден"
+          },
+          "error : 9": {
+            "description": "Id пользователя не переданно"
+          },
+          "null": {
+            "description": "Данных не найдено"
+          }
+        }
+      }
+    },
+    "/api_v1/users/user-actions": {
+      "get": {
+        "summary": "Лог действия пользователя",
+        "description": "Получение логов о действиях пользователя",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "id пользователя",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Json массив объектов",
+            "schema": {
+              "$ref": "#/definitions/UserActions"
+            }
+          },
+          "error : 4": {
+            "description": "Пользователь не найден"
+          },
+          "error : 9": {
+            "description": "Id пользователя не переданно"
+          },
+          "null": {
+            "description": "Данных не найдено"
+          }
+        }
+      }
+    },
+    "/api_v1/users/user-balance-history": {
+      "get": {
+        "summary": "История баланса пользователя",
+        "description": "Получение логов об изменении баланса пользователя",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "id пользователя",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Json массив объектов",
+            "schema": {
+              "$ref": "#/definitions/UserActions"
+            }
+          },
+          "error : 4": {
+            "description": "Пользователь не найден"
+          },
+          "error : 9": {
+            "description": "Id пользователя не переданно"
+          },
+          "null": {
+            "description": "Данных не найдено"
+          }
+        }
+      }
+    },
+    "/api_v1/users/user-send-invite": {
+      "post": {
+        "summary": "Отправить инвайт",
+        "description": "Отправляет инвайт на почтовый ящик",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "id пользователя который отправляет инвайт",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          },
+          {
+            "name": "inviteEmail",
+            "in": "query",
+            "description": "email инвайта",
+            "required": true,
+            "type": "string",
+            "format": "email"
+          },
+          {
+            "name": "inviteName",
+            "in": "query",
+            "description": "имя инвайта",
+            "required": true,
+            "type": "string",
+            "format": "utf8"
+          }
+        ],
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Json объект",
+            "schema": {
+              "$ref": "#/definitions/UserSendInvite"
+            }
+          },
+          "error : 8": {
+            "description": "email или/и имя инвайта не переданны"
+          },
+          "error : 5": {
+            "description": "инвайт этому человеку уже был отправлен"
+          },
+          "error : 11": {
+            "description": "В имени найдены повторябщиеся символы"
+          },
+          "error : 10,12": {
+            "description": "Имя не прошло валидацию DaData"
+          },
+          "error : 13": {
+            "description": "попытка отправки инвайта самому себе"
+          },
+          "error : 14": {
+            "description": "email уже занят"
+          },
+          "error : 15": {
+            "description": "передан не существующий email"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PartnersOpenConnection": {
+      "type": "object",
+      "properties": {
+        "res": {
+          "type": "boolean",
+          "description": "Статус ответа"
+        },
+        "error": {
+          "type": "string",
+          "description": "Код ошибки"
+        }
+      }
+    },
+    "UserSendInvite": {
+      "type": "object",
+      "properties": {
+        "res": {
+          "type": "boolean",
+          "example": "true",
+          "xml": {
+            "name": "res"
+          },
+          "description": "статус действия"
+        },
+        "error": {
+          "type": "integer",
+          "example": "null",
+          "xml": {
+            "name": "error"
+          },
+          "description": "код ошибки (null в случе успеха)"
+        }
+      }
+    },
+    "UserLogin": {
+      "type": "object",
+      "properties": {
+        "res": {
+          "type": "boolean",
+          "enum": [ "true", "false"],
+          "description": "Статус ответа"
+        },
+        "error": {
+          "type": "integer",
+          "example": 0,
+          "description": "Константа ошибки"
+        },
+        "userId": {
+          "type": "integer",
+          "description": "ID Пользователя"
+        }
+      }
+    },
+    "PartnersCloseConnection": {
+      "type": "object",
+      "properties": {
+        "res": {
+          "type": "boolean",
+          "description": "Статус ответа"
+        },
+        "error": {
+          "type": "string",
+          "description": "Код(сообщение) статуса"
+        }
+      }
+    },
+    "UserProfile": {
+      "properties": {
+        "firstname": {
+          "type": "string",
+          "example": "Иван",
+          "xml": {
+            "name": "firstname"
+          },
+          "description": "Имя"
+        },
+        "lastname": {
+          "type": "string",
+          "example": "Ништяк",
+          "xml": {
+            "name": "lastname"
+          },
+          "description": "Фамилия"
+        },
+        "midlename": {
+          "type": "string",
+          "example": "Сергеевичь",
+          "xml": {
+            "name": "midlename"
+          },
+          "description": "Отчество"
+        },
+        "avatar": {
+          "type": "int64",
+          "enum": [ "null - не найден", "string - url путь к файлу"],
+          "example": "http://domain.com/path/to/avatar.jpg",
+          "xml": {
+            "name": "confirmed_at"
+          },
+          "description": "Аватар пользователя"
+        },
+        "phone": {
+          "type": "string",
+          "example": "+1 (111) 111-11-11",
+          "xml": {
+            "name": "phone"
+          },
+          "description": "Телефон в формате - +1 (111) 111-11-11"
+        },
+        "phone_confirm": {
+          "type": "string",
+          "example": 0,
+          "enum": [ "1 - подтверждён", "0 - не подтвержён"],
+          "xml": {
+            "name": "phone_confirm"
+          },
+          "description": "Подтверждение телефона"
+        },
+        "email": {
+          "type": "string",
+          "example": "example@gmail.com",
+          "xml": {
+            "name": "email"
+          },
+          "description": "Почтовый адресс"
+        },
+        "email_confirm": {
+          "type": "string",
+          "example": 0,
+          "enum": [ "1 - подтверждён", "0 - не подтвержён"],
+          "xml": {
+            "name": "email_confirm"
+          },
+          "description": "Подтверждение почты"
+        },
+        "verified_status": {
+          "type": "int64",
+          "enum": [ "1 - в процессе", "9 - пройдена", "2 - просрочена"],
+          "example": 1,
+          "xml": {
+            "name": "verified_status"
+          },
+          "description": "Статус индетификации"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "UserNotifications": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "999",
+          "xml": {
+            "name": "id"
+          },
+          "description": "id уведомления"
+        },
+        "user_id": {
+          "type": "integer",
+          "example": "888",
+          "xml": {
+            "name": "user_id"
+          },
+          "description": "id пользователя"
+        },
+        "title": {
+          "type": "string",
+          "example": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "xml": {
+            "name": "title"
+          },
+          "description": "Заголовок уведомления"
+        },
+        "text": {
+          "type": "string",
+          "example": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "xml": {
+            "name": "text"
+          },
+          "description": "Текст уведомления"
+        },
+        "is_read": {
+          "type": "integer",
+          "example": 0,
+          "enum": [ "1 - прочитанно", "0 - не прочитанно"],
+          "xml": {
+            "name": "is_read"
+          },
+          "description": "Статус уведомления"
+        },
+        "type": {
+          "type": "integer",
+          "example": 0,
+          "enum": [ "0 - Система"],
+          "xml": {
+            "name": "type"
+          },
+          "description": "Тип уведомления"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "UserActions": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "999",
+          "xml": {
+            "name": "id"
+          },
+          "description": "id действия"
+        },
+        "user_id": {
+          "type": "integer",
+          "example": "888",
+          "xml": {
+            "name": "user_id"
+          },
+          "description": "id пользователя"
+        },
+        "ip": {
+          "type": "string",
+          "example": "127.0.0.1",
+          "xml": {
+            "name": "ip"
+          },
+          "description": "ip с которого было действие"
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2017-01-23 11:34:36",
+          "xml": {
+            "name": "created_at"
+          },
+          "description": "Дата действия"
+        },
+        "change_balance_local": {
+          "type": "integer",
+          "example": 999,
+          "xml": {
+            "name": "change_balance_local"
+          },
+          "description": "Изменение локального баланса"
+        },
+        "change_balance_external": {
+          "type": "integer",
+          "example": 999,
+          "xml": {
+            "name": "change_balance_external"
+          },
+          "description": "Изменение внешнннего баланса"
+        },
+        "type": {
+          "type": "integer",
+          "example": 0,
+          "enum": [ "0 - Просрочка", "1 - Локальное зачисление", "2 - Внешнее зачисление", "3 - Зачисление админом"],
+          "xml": {
+            "name": "type"
+          },
+          "description": "Тип действия"
+        },
+        "entity_id": {
+          "type": "integer",
+          "example": 999,
+          "xml": {
+            "name": "entity_id"
+          },
+          "description": "id сущности"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "UserBonuses": {
+      "properties": {
+        "ratio": {
+          "type": "flat",
+          "example": "0.00000000000000",
+          "xml": {
+            "name": "ratio"
+          },
+          "description": "Рейтинг пользователя"
+        },
+        "total": {
+          "type": "integer",
+          "example": "888",
+          "xml": {
+            "name": "total"
+          },
+          "description": "Всего бонусов"
+        },
+        "rub": {
+          "type": "integer",
+          "example": "9999",
+          "xml": {
+            "name": "rub"
+          },
+          "description": "Рубли"
+        },
+        "invites": {
+          "$ref": "#/definitions/invites"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "User": {
+      "properties": {
+        "id": {
+          "type": "int64",
+          "example": 1,
+          "format": "int64",
+          "xml": {
+            "name": "id"
+          },
+          "description": "Id Пользователя"
+        },
+        "username": {
+          "type": "integer",
+          "example": 123,
+          "format": "int64",
+          "xml": {
+            "name": "username"
+          },
+          "description": "Имя пользователя(связь с Профилем)"
+        },
+        "avatar": {
+          "type": "int64",
+          "enum": [ "null - не найден", "string - url путь к файлу"],
+          "example": "http://domain.com/path/to/avatar.jpg",
+          "xml": {
+            "name": "confirmed_at"
+          },
+          "description": "Аватар пользователя"
+
+        },
+        "email": {
+          "type": "string",
+          "example": "example@gmail.com",
+          "xml": {
+            "name": "email"
+          },
+          "description": "Почтовый адресс"
+        },
+        "email_confirm": {
+          "type": "string",
+          "example": 0,
+          "enum": [ "1 - подтверждён", "0 - не подтвержён"],
+          "xml": {
+            "name": "email_confirm"
+          },
+          "description": "Подтверждение почты"
+        },
+        "phone": {
+          "type": "string",
+          "example": "+1 (111) 111-11-11",
+          "xml": {
+            "name": "phone"
+          },
+          "description": "Телефон в формате - +1 (111) 111-11-11"
+
+        },
+        "phone_confirm": {
+          "type": "string",
+          "example": 0,
+          "enum": [ "1 - подтверждён", "0 - не подтвержён"],
+          "xml": {
+            "name": "phone_confirm"
+          },
+          "description": "Подтверждение телефона"
+        },
+        "created_at": {
+          "type": "int64",
+          "xml": {
+            "name": "created_at"
+          },
+          "description": "Дата создания"
+
+        },
+        "updated_at": {
+          "type": "int64",
+          "xml": {
+            "name": "updated_at"
+          },
+          "description": "Дата обновления"
+
+        },
+
+
+
+        "amount_total": {
+          "type": "string",
+          "example": "9999999(рублей)",
+          "xml": {
+            "name": "amount_total"
+          },
+          "description": "Сумма действующих кредитов"
+        },
+        "total_overdue": {
+          "type": "string",
+          "example": "9999999(рублей)",
+          "xml": {
+            "name": "total_overdue"
+          },
+          "description": "Сумма просрочки на текущий момент"
+        },
+
+        "verified_status": {
+          "type": "int64",
+          "enum": [ "1 - в процессе", "9 - пройдена", "2 - просрочена"],
+          "example": 1,
+          "xml": {
+            "name": "verified_status"
+          },
+          "description": "Статус индетификации"
+        },
+        "userRegisterLog": {
+          "type": "int64",
+          "enum": [ "[null, 0] - найдена", "1 - не найдена", "2 - не корректная"],
+          "example": "null or int",
+          "xml": {
+            "name": "userRegisterLog"
+          },
+          "description": "Кредитная история"
+        },
+        "moderation_status": {
+          "type": "int64",
+          "enum": [ "1 - активный", "0 - заблокирован", "2 - заморожен", "3 - удалён"],
+          "example": 1,
+          "xml": {
+            "name": "moderation_status"
+          },
+          "description": "Статус модерации"
+        },
+
+        "profile": {
+          "$ref": "#/definitions/profile"
+        },
+        "creditRating": {
+          "$ref": "#/definitions/creditRating"
+        },
+        "lastCreditRatingHistory": {
+          "$ref": "#/definitions/lastCreditRatingHistory"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "profile": {
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "xml": {
+            "name": "user_id"
+          },
+          "description": "Id Пользователя"
+        },
+        "location": {
+          "type": "string",
+          "format": "string",
+          "example": "RU",
+          "xml": {
+            "name": "location"
+          },
+          "description": "Местоположение (char 3)"
+        },
+        "firstname": {
+          "type": "string",
+          "example": "Иван",
+          "xml": {
+            "name": "firstname"
+          },
+          "description": "Имя"
+        },
+        "lastname": {
+          "type": "string",
+          "example": "Ништяк",
+          "xml": {
+            "name": "lastname"
+          },
+          "description": "Фамилия"
+        },
+        "midlename": {
+          "type": "string",
+          "example": "Сергеевичь",
+          "xml": {
+            "name": "midlename"
+          },
+          "description": "Отчество"
+        },
+
+        "birthday": {
+          "type": "string",
+          "example": "2016-07-13",
+          "xml": {
+            "name": "birthday"
+          },
+          "description": "День рождения"
+        },
+        "passport_series": {
+          "type": "int64",
+          "example": 1111,
+          "xml": {
+            "name": "passport_series"
+          },
+          "description": "Серия пасспорта"
+        },
+        "passport_number": {
+          "type": "int64",
+          "example": 111111,
+          "xml": {
+            "name": "passport_number"
+          },
+          "description": "Номер пасспорта"
+        },
+        "passport_date": {
+          "type": "date",
+          "example": "2016-07-13",
+          "xml": {
+            "name": "passport_date"
+          },
+          "description": "Дата выдачи пасспорта"
+
+        },
+        "gender": {
+          "type": "string",
+          "example": "M",
+          "enum": [ "M - male", "F - female"],
+          "xml": {
+            "name": "gender"
+          },
+          "description": "Пол"
+        },
+        "birthplace": {
+          "type": "string",
+          "example": "Пермь",
+          "xml": {
+            "name": "birthplace"
+          },
+          "description": "Место рождения"
+        },
+        "passport_place": {
+          "type": "string",
+          "xml": {
+            "name": "passport_place"
+          },
+          "description": "Место выдачи пасспорта"
+        },
+        "passport_who": {
+          "type": "string",
+          "xml": {
+            "name": "passport_place"
+          },
+          "description": "Кем выдан пасспорт"
+        },
+        "inn": {
+          "type": "string",
+          "xml": {
+            "name": "inn"
+          },
+          "description": "ИНН"
+        },
+        "pfno": {
+          "type": "string",
+          "xml": {
+            "name": "inn"
+          },
+          "description": "ПФНО"
+        },
+        "fssp": {
+          "type": "string",
+          "xml": {
+            "name": "inn"
+          },
+          "description": "ФССП"
+        },
+        "snils": {
+          "type": "string",
+          "xml": {
+            "name": "inn"
+          },
+          "description": "СНИЛС"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "creditRating": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "xml": {
+            "name": "id"
+          },
+          "description": "Id Связи"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "xml": {
+            "name": "user_id"
+          },
+          "description": "Id Пользователя"
+        }
+      },
+      "xml": {
+        "name": "CreditRating"
+      }
+    },
+    "invites": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "xml": {
+            "name": "id"
+          },
+          "description": "Id Приглашения"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "xml": {
+            "name": "user_id"
+          },
+          "description": "Id Пользователя"
+        },
+        "firstname": {
+          "type": "string",
+          "format": "string",
+          "xml": {
+            "name": "firstname"
+          },
+          "description": "Имя приглашённого Пользователя"
+        },
+        "email": {
+          "type": "string",
+          "format": "string",
+          "xml": {
+            "name": "email"
+          },
+          "description": "Почтовый ящик приглашённого Пользователя"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "string",
+          "xml": {
+            "name": "created_at"
+          },
+          "description": "Дата создания инвайта"
+        },
+        "hash": {
+          "type": "string",
+          "format": "string",
+          "xml": {
+            "name": "hash"
+          },
+          "description": "hash инвайта"
+        },
+        "status": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "status"
+          },
+          "description": "Статус инвайта"
+        },
+        "last_sending_at": {
+          "type": "string",
+          "format": "string",
+          "xml": {
+            "name": "last_sending_at"
+          },
+          "description": "Дата последней отправки"
+        },
+        "points": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "points"
+          },
+          "description": "Баллы для начисления"
+        }
+      },
+      "xml": {
+        "name": "invites"
+      }
+    },
+    "lastCreditRatingHistory": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "xml": {
+            "name": "id"
+          },
+          "description": "Id Истории"
+        },
+        "credit_rating_id": {
+          "type": "integer",
+          "format": "int64",
+          "xml": {
+            "name": "credit_rating_id"
+          },
+          "description": "Id Кредитного Рейтинга"
+        },
+        "month": {
+          "type": "string",
+          "format": "string",
+          "xml": {
+            "name": "month"
+          },
+          "description": "Месяц"
+        },
+        "fico_coefficient": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "fico_coefficient"
+          },
+          "description": "Кредитный рейтинг"
+        },
+        "dynamics": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "dynamics"
+          },
+          "description": "Динамика кредитного рейтинга"
+        },
+        "open_credits": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "open_credits"
+          },
+          "description": "Действующие кредиты"
+        },
+        "guarantor": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "guarantor"
+          },
+          "description": "Поручительство"
+        },
+        "bad_debt": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "bad_debt"
+          },
+          "description": "У клиента был безнадежный долг"
+        },
+        "delay_open_small": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "delay_open_small"
+          },
+          "description": "Просрочка от 30 до 60 дней (действующие)"
+        },
+        "delay_open_middle": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "delay_open_middle"
+          },
+          "description": "Просрочка от 60 до 90 дней (действующие)"
+        },
+        "delay_open_big": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "delay_open_big"
+          },
+          "description": "Просрочка более чем 90 дней (действующие)"
+        },
+        "delay_closed_small": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "delay_closed_small"
+          },
+          "description": "Просрочка от 30 до 60 дней (закрытые)"
+        },
+        "delay_closed_middle": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "delay_closed_middle"
+          },
+          "description": "Просрочка от 60 до 90 дней (закрытые)"
+        },
+        "delay_closed_big": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "delay_closed_big"
+          },
+          "description": "Просрочка более чем 90 дней (закрытые)"
+        },
+        "requests_last_seven_days": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "delay_closed_big"
+          },
+          "description": "Запросы за последние 7 дней"
+        },
+        "requests_last_fourteen_days": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "requests_last_fourteen_days"
+          },
+          "description": "Запросы за последние 14 дней"
+        },
+        "requests_last_month_days": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "requests_last_month_days"
+          },
+          "description": "Запросы за последний месяц"
+        },
+        "requests_all": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "requests_all"
+          },
+          "description": "Запросы за все время"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "integer",
+          "xml": {
+            "name": "created_at"
+          },
+          "description": "Дата создания"
+        }
+      },
+      "xml": {
+        "name": "CreditRating"
+      }
+    }
+  }
+}
+
